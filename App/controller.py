@@ -30,8 +30,29 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+def inic_catalogo():
+    """
+    llama la funcion para inicializar el catalogo
+    """
+    catalogo= model.catalogo()
+    return catalogo
 
 # Funciones para la carga de datos
+def carga_datos(catalogo):
+    loadcategoria(catalogo)
+    loadvideos(catalogo)
+
+def loadvideos(catalogo):
+    videosfile= cf.data_dir+"videos-small.csv"
+    inputfile= csv.DictReader(open(videosfile, encoding="utf-8"))
+    for video in inputfile:
+        model.add_video(catalogo,video)
+
+def loadcategoria(catalogo):
+    categoryfile= cf.data_dir+"category-id.csv"
+    inputfile = csv.DictReader(open(categoryfile, encoding="utf-8"))
+    for categoria in inputfile:
+        model.add_category(catalogo,categoria)
 
 # Funciones de ordenamiento
 

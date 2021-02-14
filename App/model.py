@@ -36,13 +36,46 @@ los mismos.
 """
 
 # Construccion de modelos
+def catalogo():
+    catalogo = {'videos': None,
+               'categorias': None}
+    catalogo["videos"]= lt.newList()
+    catalogo["categorias"]= lt.newList("ARRAY_LIST", cmpfunction=comparecate)
+    return catalogo
 
 # Funciones para agregar informacion al catalogo
+def add_video(catalogo,video):
+    lt.addLast(catalogo["videos"],video)
+    addCatVid(catalogo, video)
+
+def add_category(catalogo,categoria):
+    c= new_category(categoria["name"], categoria["id"])
+    lt.addLast(catalogo["categorias"],c)
+
+def addCatVid(catalogo,video):
+    categoria=video["category_id"]
+    elemento= encontrar_categoria(catalogo,categoria)
+    lt.addLast(elemento["videos"], video)
 
 # Funciones para creacion de datos
-
+def new_category(name, identificador):
+    categoria= {'name': '', 'tag_id': '', "videos":None}
+    categoria["videos"]= lt.newList('ARRAY_LIST')
+    categoria["name"]= name.lower()
+    categoria["tag_id"]= identificador
+    return categoria
 # Funciones de consulta
+def encontrar_categoria(catalogo, categoria): 
+    categoria=categoria
+    consulta= lt.isPresent(catalogo["categorias"], categoria)
+    elemento = lt.getElement(catalogo["categorias"],consulta)
+    return elemento
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def comparecate(categoria1, categoria):
+    
+    if (categoria1 in categoria["id"]):
+        return 0
+    return -1 
 
 # Funciones de ordenamiento

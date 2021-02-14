@@ -44,6 +44,10 @@ def printMenu():
 
 catalog = None
 
+def inic_catalogo():
+    return controller.inic_catalogo()
+def carga_datos(catalogo):
+    return controller.carga_datos(catalogo)
 """
 Menu principal
 """
@@ -54,6 +58,8 @@ while True:
     if int(inputs[0]) == 1:
         t1 = time.process_time_ns()
         print("Cargando información de los archivos ....")
+        catalogo = inic_catalogo()
+        carga_datos(catalogo)
         t2= time.process_time_ns()
         print("El tiempo transcurrido fue: "+ str(t2-t1))
 
