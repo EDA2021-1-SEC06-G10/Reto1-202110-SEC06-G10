@@ -39,8 +39,16 @@ def printMenu():
     print("1- Cargar información en el catálogo")
     print("2- Encontrar buenos videos")
     print("3- Encontrar tendencia por pais")
-    print("4-")
-    print("5-Buscar los videos con mas likes")
+    print("4- ")
+    print("5- Buscar los videos con mas likes")
+
+
+def initCatolog():
+    return controller.initCatalog()
+
+
+def loadData(catalog):
+    controller.loadData(catalog)
 
 catalog = None
 
@@ -49,13 +57,17 @@ Menu principal
 """
 while True:
     printMenu()
-    
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        t1 = time.process_time_ns()
         print("Cargando información de los archivos ....")
-        t2= time.process_time_ns()
+        t1 = time.process_time_ns()
+        catalog = initCatolog()
+        loadData(catalog)
+        t2 = time.process_time_ns()
         print("El tiempo transcurrido fue: "+ str(t2-t1))
+        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+        print('Canales autores cargados: ' + str(lt.size(catalog['channel_title'])))
+        print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
         cat=input("Ingrese la categoría que desea conocer")
