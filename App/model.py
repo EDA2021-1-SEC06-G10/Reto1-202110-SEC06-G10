@@ -37,12 +37,66 @@ los mismos.
 
 # Construccion de modelos
 
+def newCatalog():
+    catalog = {'videos': None,
+                'channel_title': None,
+                'categories': None}
+    
+    catalog['videos'] = lt.newList()
+    catalog['channel_title'] = lt.newList('ARRAY_LIST',
+                                          cmpfunction=comparechanneltitles)
+    catalog['categories'] = lt.newList('ARRAY_LIST', 
+                                 cmpfunction=comparetagnames)
+    
+    return catalog
+
 # Funciones para agregar informacion al catalogo
 
+def addVideo(catalog, video):
+    lt.addLast(catalog['videos'], video)
+    channel_titles = video['channel_title'].split(',')
+    for channel_title in channel_titles:
+        addVideoChannel(catalog, channel_title.strip(), video)
+
+def addVideoChannel(catalog, channel_titlename, video):
+    channel_titles = catalog['channel_title']
+    poschannel_title = lt.isPresent(channel_titles, channel_titlename)
+    if poschannel_title > 0:
+        channel_title = lt.getElement(channel_titles, poschannel_title)
+    else:
+        channel_title = newAuthor(channel_titlename)
+        lt.addLast(channel_titles, channel_title)
+    lt.addLast(channel_title['videos'], video)
+
+def addCategory(catalog, category):
+    c = newCategory(category['name'], category['id'])
+    lt.addLast(catalog['categories'], c)
+
+
 # Funciones para creacion de datos
+
+def newAuthor(name):
+    channel_title = {'name': '', 'videos': None, 'likes': 0}
+    channel_title['name'] = name
+    channel_title['videos'] = lt.newList('ARRAY_LIST')
+    return channel_title 
+
+def newCategory(category_name, category_id):
+    category = {'category_name': '', 'category_id': ''}
+    category['category_name'] = category_name
+    category['category_id'] = category_id
+    return category
 
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+def comparechanneltitles(channel_title1, channel_title):
+    if (channel_title1.lower() in channel_title['name'].lower()):
+        return 0
+    return -1
+
+def comparetagnames(category_name, category):
+    return (category_name == category['name'])
 
 # Funciones de ordenamiento
