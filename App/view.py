@@ -39,7 +39,7 @@ def printMenu():
     print("1- Cargar información en el catálogo")
     print("2- Encontrar buenos videos")
     print("3- Encontrar tendencia por pais")
-    print("4- ")
+    print("4- Encontrar tendencia por categoria")
     print("5- Buscar los videos con mas likes")
 
 
@@ -70,8 +70,8 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        cat=input("Ingrese la categoría que desea conocer")
-        pais=input("Ingrese el pais en el cual desea encontrar buenos videos")
+        cat = input("Ingrese la categoría que desea conocer")
+        pais = input("Ingrese el pais en el cual desea encontrar buenos videos")
 
     else:
         sys.exit(0)
