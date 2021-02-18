@@ -70,8 +70,8 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        cat = input("Ingrese la categoría que desea conocer")
-        pais = input("Ingrese el pais en el cual desea encontrar buenos videos")
+        cat = input("Ingrese la categoría que desea conocer: ")
+        pais = input("Ingrese el pais en el cual desea encontrar buenos videos: ")
 
     else:
         sys.exit(0)
