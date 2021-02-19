@@ -70,9 +70,10 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        cat = input("Ingrese la categoría que desea conocer")
-        pais = input("Ingrese el pais en el cual desea encontrar buenos videos")
-
+        cat = input("Ingrese la categoría que desea conocer: ")
+        pais = input("Ingrese el pais en el cual desea encontrar buenos videos: ")
+        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
+        algoritmo = input('Ingrese el tipo de algoritmo quiere usar: ')
     else:
         sys.exit(0)
 sys.exit(0)
