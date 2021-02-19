@@ -98,5 +98,8 @@ def comparechanneltitles(channel_title1, channel_title):
 
 def comparetagnames(category_name, category):
     return (category_name == category['name'])
-
+ 
+def compareviews(video1,video2):
+    result = (video1["views"] < video2["views"])
+    return result
 # Funciones de ordenamiento
