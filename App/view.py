@@ -49,7 +49,7 @@ def print_results(ord_vids, sample=10):
         i = 0
         while i <= sample:
             video= lt.getElement(ord_vids,i)
-            print("Titulo: " + video['title'] + " canal: " + video["channel_title"]+ " Rating: "+ book["average_rating"])
+            print("Titulo: " + video['title'] + " canal: " + video["channel_title"]+ " Views: "+ book["views"])
             i += 1
 
 def initCatolog():
@@ -90,7 +90,7 @@ while True:
             par_algoritmo = "shell"
         result = controller.sortVideos(catalog,size,par_algoritmo)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
-
+        print_results(result[1])
     else:
         sys.exit(0)
 sys.exit(0)
