@@ -42,6 +42,15 @@ def printMenu():
     print("4- Encontrar tendencia por categoria")
     print("5- Buscar los videos con mas likes")
 
+def print_results(ord_vids, sample=10):
+    size = lt.size(ord_vids)
+    if size > sample:
+        print("Los primeros ", sample, " videos en views son: ")
+        i = 0
+        while i <= sample:
+            video= lt.getElement(ord_vids,i)
+            print("Titulo: " + video['title'] + " canal: " + video["channel_title"]+ " Rating: "+ book["average_rating"])
+            i += 1
 
 def initCatolog():
     return controller.initCatalog()
@@ -59,6 +68,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
         print("Cargando información de los archivos ....")
         t1 = time.process_time_ns()
         catalog = initCatolog()
@@ -70,10 +80,17 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        cat = input("Ingrese la categoría que desea conocer: ")
-        pais = input("Ingrese el pais en el cual desea encontrar buenos videos: ")
-        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
-        algoritmo = input('Ingrese el tipo de algoritmo quiere usar: ')
+        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell: '))
+        size = int(input("Ingrese el tamaño de la muestra: "))
+        if algoritmo == 1:
+            par_algoritmo = "selec"
+        elif algoritmo == 2:
+            par_algoritmo = "inser"
+        elif algoritmo == 3:
+            par_algoritmo = "shell"
+        result = controller.sortVideos(catalog,size,par_algoritmo)
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
+
     else:
         sys.exit(0)
 sys.exit(0)
