@@ -42,10 +42,22 @@ def printMenu():
     print("4- Encontrar tendencia por categoria")
     print("5- Buscar los videos con mas likes")
 
+def print_results(ord_vids, sample=10):
+    size = lt.size(ord_vids)
+    if size > sample:
+        print("Los primeros ", sample, " videos en views son: ")
+        i = 0
+        while i <= sample:
+            video= lt.getElement(ord_vids,i)
+            print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ video["views"])
+            i += 1
 
-def initCatolog():
-    return controller.initCatalog()
+def initCatolog(tipo):
+    dataType(tipo)
+    return controller.initCatalog(tipo)
 
+def dataType(tipo):
+    return tipo
 
 def loadData(catalog):
     controller.loadData(catalog)
@@ -59,9 +71,15 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
+        if estructuraDeDatos == 'array':
+            par_estruc = 'ARRAY_LIST'
+        elif estructuraDeDatos == 'linked':
+            par_estruc = 'LINKED_LIST'
+        estrucDatos = controller.dataType(par_estruc)
         print("Cargando información de los archivos ....")
         t1 = time.process_time_ns()
-        catalog = initCatolog()
+        catalog = initCatolog(par_estruc)
         loadData(catalog)
         t2 = time.process_time_ns()
         print("El tiempo transcurrido fue: "+ str(t2-t1))
@@ -70,9 +88,17 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        cat = input("Ingrese la categoría que desea conocer: ")
-        pais = input("Ingrese el pais en el cual desea encontrar buenos videos: ")
-
+        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell: '))
+        size = int(input("Ingrese el tamaño de la muestra: "))
+        if algoritmo == 1:
+            par_algoritmo = "selec"
+        elif algoritmo == 2:
+            par_algoritmo = "inser"
+        elif algoritmo == 3:
+            par_algoritmo = "shell"
+        result = controller.sortVideos(catalog,size,par_algoritmo)
+        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
+        print_results(result[1])
     else:
         sys.exit(0)
 sys.exit(0)

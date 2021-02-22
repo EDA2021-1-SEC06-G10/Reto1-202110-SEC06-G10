@@ -26,8 +26,11 @@
 
 
 import config as cf
+import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import selectionsort as sel
 assert cf
 
 """
@@ -37,18 +40,25 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def dataType(tipo):
+    return tipo
+
+def newCatalog(tipo):
     catalog = {'videos': None,
                 'channel_title': None,
                 'categories': None}
     
+    tipos = dataType(tipo)
     catalog['videos'] = lt.newList()
-    catalog['channel_title'] = lt.newList('ARRAY_LIST',
-                                          cmpfunction=comparechanneltitles)
-    catalog['categories'] = lt.newList('ARRAY_LIST', 
-                                 cmpfunction=comparetagnames)
-    
+    if tipos == 'ARRAY_LIST':
+        catalog['channel_title'] = lt.newList('ARRAY_LIST', cmpfunction=comparechanneltitles)
+        catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
+    elif tipos == 'LINKED_LIST':
+        catalog['channel_title'] = lt.newList('LINKED_LIST', cmpfunction=comparechanneltitles)
+        catalog['categories'] = lt.newList('LINKED_LIST', cmpfunction=comparetagnames)
     return catalog
+
+
 
 # Funciones para agregar informacion al catalogo
 
@@ -102,4 +112,19 @@ def comparetagnames(category_name, category):
 def compareviews(video1,video2):
     result = (video1["views"] < video2["views"])
     return result
+
 # Funciones de ordenamiento
+
+def sortVideos(catalog, size, ordenar):
+    sub_list = lt.subList(catalog["videos"],0,size)
+    sub_list = sub_list.copy()
+    t1 = time.process_time()
+    if ordenar == "selec":
+        sorted_list = sel.sort(sub_list,compareviews)
+    elif ordenar == "inser":
+        sorted_list = ins.sort(sub_list,compareviews)
+    elif ordenar == "shell":
+        sorted_list = sa.sort(sub_list,compareviews)
+    t2= time.process_time()
+    tiempo_ms= (t2-t1)*1000
+    return tiempo_ms, sorted_list
