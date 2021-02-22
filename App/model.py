@@ -40,18 +40,25 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def dataType(tipo):
+    return tipo
+
+def newCatalog(tipo):
     catalog = {'videos': None,
                 'channel_title': None,
                 'categories': None}
     
+    tipos = dataType(tipo)
     catalog['videos'] = lt.newList()
-    catalog['channel_title'] = lt.newList('ARRAY_LIST',
-                                          cmpfunction=comparechanneltitles)
-    catalog['categories'] = lt.newList('ARRAY_LIST', 
-                                 cmpfunction=comparetagnames)
-    
+    if tipos == 'ARRAY_LIST':
+        catalog['channel_title'] = lt.newList('ARRAY_LIST', cmpfunction=comparechanneltitles)
+        catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
+    elif tipos == 'LINKED_LIST':
+        catalog['channel_title'] = lt.newList('LINKED_LIST', cmpfunction=comparechanneltitles)
+        catalog['categories'] = lt.newList('LINKED_LIST', cmpfunction=comparetagnames)
     return catalog
+
+
 
 # Funciones para agregar informacion al catalogo
 
@@ -105,7 +112,9 @@ def comparetagnames(category_name, category):
 def compareviews(video1,video2):
     result = (video1["views"] < video2["views"])
     return result
+
 # Funciones de ordenamiento
+
 def sortVideos(catalog, size, ordenar):
     sub_list = lt.subList(catalog["videos"],0,size)
     sub_list = sub_list.copy()

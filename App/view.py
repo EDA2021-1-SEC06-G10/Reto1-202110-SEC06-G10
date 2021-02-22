@@ -52,9 +52,12 @@ def print_results(ord_vids, sample=10):
             print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ video["views"])
             i += 1
 
-def initCatolog():
-    return controller.initCatalog()
+def initCatolog(tipo):
+    dataType(tipo)
+    return controller.initCatalog(tipo)
 
+def dataType(tipo):
+    return tipo
 
 def loadData(catalog):
     controller.loadData(catalog)
@@ -69,9 +72,14 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
+        if estructuraDeDatos == 'array':
+            par_estruc = 'ARRAY_LIST'
+        elif estructuraDeDatos == 'linked':
+            par_estruc = 'LINKED_LIST'
+        estrucDatos = controller.dataType(par_estruc)
         print("Cargando información de los archivos ....")
         t1 = time.process_time_ns()
-        catalog = initCatolog()
+        catalog = initCatolog(par_estruc)
         loadData(catalog)
         t2 = time.process_time_ns()
         print("El tiempo transcurrido fue: "+ str(t2-t1))
