@@ -42,7 +42,7 @@ def loadData(catalog):
     
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'GoodReads/videos-med.csv'
+    videosfile = cf.data_dir + 'GoodReads/videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         filtrado= {}
