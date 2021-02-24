@@ -99,6 +99,7 @@ while True:
         result = controller.sortVideos(catalog,size,par_algoritmo)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
         print_results(result[1])
+        controller.limpieza(result[1])
     else:
         sys.exit(0)
 sys.exit(0)

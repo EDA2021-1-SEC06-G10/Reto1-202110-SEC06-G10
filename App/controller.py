@@ -76,5 +76,7 @@ def dataType(tipo):
 def sortVideos(catalog, size, ordenar):
     return model.sortVideos(catalog, size, ordenar)
 
+def limpieza(lista):
+    return model.limpieza(lista)
 
 # Funciones de consulta sobre el catálogo
