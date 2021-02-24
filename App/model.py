@@ -49,11 +49,13 @@ def newCatalog(tipo):
                 'categories': None}
     
     tipos = dataType(tipo)
-    catalog['videos'] = lt.newList()
+    
     if tipos == 'ARRAY_LIST':
+        catalog['videos'] = lt.newList('ARRAY_LIST')
         catalog['channel_title'] = lt.newList('ARRAY_LIST', cmpfunction=comparechanneltitles)
         catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
     elif tipos == 'LINKED_LIST':
+        catalog['videos'] = lt.newList()
         catalog['channel_title'] = lt.newList('LINKED_LIST', cmpfunction=comparechanneltitles)
         catalog['categories'] = lt.newList('LINKED_LIST', cmpfunction=comparetagnames)
     return catalog
@@ -64,19 +66,7 @@ def newCatalog(tipo):
 
 def addVideo(catalog, video):
     lt.addLast(catalog['videos'], video)
-    channel_titles = video['channel_title'].split(',')
-    for channel_title in channel_titles:
-        addVideoChannel(catalog, channel_title.strip(), video)
 
-def addVideoChannel(catalog, channel_titlename, video):
-    channel_titles = catalog['channel_title']
-    poschannel_title = lt.isPresent(channel_titles, channel_titlename)
-    if poschannel_title > 0:
-        channel_title = lt.getElement(channel_titles, poschannel_title)
-    else:
-        channel_title = newAuthor(channel_titlename)
-        lt.addLast(channel_titles, channel_title)
-    lt.addLast(channel_title['videos'], video)
 
 def addCategory(catalog, category):
     c = newCategory(category['name'], category['id'])
@@ -127,7 +117,7 @@ def sortVideos(catalog, size, ordenar):
         sorted_list = sa.sort(sub_list,compareviews)
     t2= time.process_time()
     tiempo_ms= (t2-t1)*1000
-    sublist= None
+    sub_list= None
     return tiempo_ms, sorted_list
 
 def limpieza(lista):
