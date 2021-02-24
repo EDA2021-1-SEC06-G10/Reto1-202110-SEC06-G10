@@ -37,11 +37,12 @@ def initCatalog(tipo):
 # Funciones para la carga de datos
 
 def loadData(catalog):
-    loadVideos(catalog)
     loadCategory(catalog)
+    loadVideos(catalog)
+    
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'GoodReads/videos-small.csv'
+    videosfile = cf.data_dir + 'GoodReads/videos-med.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         filtrado= {}

@@ -71,7 +71,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar: ')
+        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar (array o linked): ')
         if estructuraDeDatos == 'array':
             par_estruc = 'ARRAY_LIST'
         elif estructuraDeDatos == 'linked':
