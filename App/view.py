@@ -77,7 +77,7 @@ while True:
         elif estructuraDeDatos == 'linked':
             par_estruc = 'LINKED_LIST'
         estrucDatos = controller.dataType(par_estruc)
-        print("Cargando información de los archivos ....")
+        print("Cargando información de los archivos .... ")
         t1 = time.process_time_ns()
         catalog = initCatolog(par_estruc)
         loadData(catalog)
