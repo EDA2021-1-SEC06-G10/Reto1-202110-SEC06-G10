@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+from time import time
 
 
 """
@@ -57,6 +58,12 @@ def loadVideos(catalog):
         filtrado["likes"] = video["likes"]
         filtrado["dislikes"] = video["dislikes"]
         filtrado["country"] = video["country"]
+
+        video['trending_date'] = (filtrado['trending_time']) # FALTA LO DEL TIEMPO
+        video['publish_time'] = (filtrado['publish_time']) # FALTA LO DEL TIEMPO
+        video['views'] = int(filtrado['views'])
+        video['likes'] = int(filtrado['likes'])
+        video['dislikes'] = int(filtrado['dislikes'])
         model.addVideo(catalog, filtrado)
 
 def loadCategory(catalog):
