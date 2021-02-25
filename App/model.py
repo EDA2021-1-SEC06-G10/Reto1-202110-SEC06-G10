@@ -31,6 +31,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import selectionsort as sel
+from DISClib.Algorithms.Sorting import quicksort as qck
+from DISClib.Algorithms.Sorting import mergesort as mer
 assert cf
 
 """
@@ -114,6 +116,10 @@ def sortVideos(catalog, size, ordenar):
         sorted_list = ins.sort(sub_list,compareviews)
     elif ordenar == "shell":
         sorted_list = sa.sort(sub_list,compareviews)
+    elif ordenar == "quick":
+        sorted_list = qck.sort(sub_list, compareviews)
+    elif ordenar == "merge":
+        sorted_list = mer.sort(sub_list, compareviews)
     t2= time.process_time()
     tiempo_ms= (t2-t1)*1000
     sub_list= None

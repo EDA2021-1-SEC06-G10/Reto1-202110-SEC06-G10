@@ -88,7 +88,7 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell: '))
+        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell (4)quick: '))
         size = int(input("Ingrese el tamaño de la muestra: "))
         if algoritmo == 1:
             par_algoritmo = "selec"
@@ -96,6 +96,10 @@ while True:
             par_algoritmo = "inser"
         elif algoritmo == 3:
             par_algoritmo = "shell"
+        elif algoritmo == 4:
+            par_algoritmo = "quick"
+        elif algoritmo == 5:
+            par_algoritmo = "merge"
         result = controller.sortVideos(catalog,size,par_algoritmo)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
         print_results(result[1])
