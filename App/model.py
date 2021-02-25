@@ -72,7 +72,6 @@ def addCategory(catalog, category):
     c = newCategory(category['name'], category['id'])
     lt.addLast(catalog['categories'], c)
 
-
 # Funciones para creacion de datos
 
 def newAuthor(name):
