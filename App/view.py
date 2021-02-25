@@ -77,7 +77,7 @@ while True:
         elif estructuraDeDatos == 'linked':
             par_estruc = 'LINKED_LIST'
         estrucDatos = controller.dataType(par_estruc)
-        print("Cargando información de los archivos ....")
+        print("Cargando información de los archivos .... ")
         t1 = time.process_time_ns()
         catalog = initCatolog(par_estruc)
         loadData(catalog)
@@ -88,7 +88,7 @@ while True:
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell (4)quick: '))
+        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell (4)quick (5)merge: '))
         size = int(input("Ingrese el tamaño de la muestra: "))
         if algoritmo == 1:
             par_algoritmo = "selec"
