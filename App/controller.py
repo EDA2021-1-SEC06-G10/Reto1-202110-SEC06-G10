@@ -59,8 +59,8 @@ def loadVideos(catalog):
         filtrado["dislikes"] = video["dislikes"]
         filtrado["country"] = video["country"]
 
-        video['trending_date'] = (filtrado['trending_time']) # FALTA LO DEL TIEMPO
-        video['publish_time'] = (filtrado['publish_time']) # FALTA LO DEL TIEMPO
+        #video['trending_date'] = (filtrado['trending_time']) # FALTA LO DEL TIEMPO
+        #video['publish_time'] = (filtrado['publish_time']) # FALTA LO DEL TIEMPO
         video['views'] = int(filtrado['views'])
         video['likes'] = int(filtrado['likes'])
         video['dislikes'] = int(filtrado['dislikes'])
