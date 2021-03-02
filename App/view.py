@@ -49,7 +49,7 @@ def print_results(ord_vids, sample=10):
         i = 0
         while i <= sample:
             video= lt.getElement(ord_vids,i)
-            print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ video["views"])
+            print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ str(video["views"]))
             i += 1
 
 def initCatolog(tipo):
