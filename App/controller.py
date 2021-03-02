@@ -42,7 +42,7 @@ def loadData(catalog):
     
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'GoodReads/videos-large.csv'
+    videosfile = cf.data_dir + 'GoodReads/videos-small.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         filtrado= {}
@@ -50,19 +50,16 @@ def loadVideos(catalog):
         filtrado["trending_date"] = video["trending_date"]
         filtrado["title"] = video["title"]
         filtrado["channel_title"] = video["channel_title"]
-        filtrado["category_id"] = video["category_id"]
+        filtrado["category_id"] = int(video["category_id"])
         filtrado["publish_time"] = video["publish_time"]
         filtrado["tags"] = video["tags"]
-        filtrado["views"] = video["views"]
-        filtrado["likes"] = video["likes"]
-        filtrado["dislikes"] = video["dislikes"]
+        filtrado["views"] = int(video["views"])
+        filtrado["likes"] = int(video["likes"])
+        filtrado["dislikes"] = int(video["dislikes"])
         filtrado["country"] = video["country"]
 
         #video['trending_date'] = (filtrado['trending_time']) # FALTA LO DEL TIEMPO
         #video['publish_time'] = (filtrado['publish_time']) # FALTA LO DEL TIEMPO
-        video['views'] = int(filtrado['views'])
-        video['likes'] = int(filtrado['likes'])
-        video['dislikes'] = int(filtrado['dislikes'])
         model.addVideo(catalog, filtrado)
 
 def loadCategory(catalog):
@@ -71,13 +68,13 @@ def loadCategory(catalog):
     for category in input_file:
         category_list = category['id\tname'].split('\t')
         category['name'] = category_list[1]
-        category['id'] = category_list[0]
+        category['id'] = int(category_list[0])
         model.addCategory(catalog, category)
 
 # Funciones de ordenamiento
 
-def sortVideos(catalog, size, ordenar):
-    return model.sortVideos(catalog, size)
+def sortVideos(lista):
+    return model.sortVideos(lista)
 
 def limpieza(lista):
     return model.limpieza(lista)
@@ -85,3 +82,10 @@ def limpieza(lista):
 # Funciones de consulta sobre el catálogo
 def filtrado_pais(catalog, pais):
     return model.filtrado_pais(catalog, pais)
+
+def filtrado_categoria(lista, categoria):
+    return model.filtrado_categoria(lista, categoria)
+
+def idCat(catalog, categoria):
+    num_cat= model.idCat(catalog, categoria)
+    return num_cat

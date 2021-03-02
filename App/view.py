@@ -47,7 +47,7 @@ def print_results(ord_vids, sample):
     if size > sample:
         print("Los primeros ", sample, " videos en views son: ")
         i = 0
-        while i <= sample:
+        while i < sample:
             video= lt.getElement(ord_vids,i)
             print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ str(video["views"]))
             i += 1
@@ -80,16 +80,23 @@ while True:
         print("El tiempo transcurrido fue: "+ str(t2-t1))
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
-
     elif int(inputs[0]) == 2:
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
+        pais= pais.lower()
         categoria = input("Ingrese la categoria que desea conocer: ")
+        categoria= categoria.lower()
+        categoria= " "+categoria
         tamano= int(input("Ingrese la cantidad de videos que desea ver: "))
-        filtrado_pais=controller.filtrado_pais(catalog, tamano)
-        result= filtrado_pais
+        filtrado_pais = controller.filtrado_pais(catalog, pais)
+        num_categoria = controller.idCat(catalog, categoria)
+        filtrado_categoria = controller.filtrado_categoria(filtrado_pais, num_categoria)
+
+        result=controller.sortVideos(filtrado_categoria)
+        print(result)
         print("El tiempo (mseg) es: ", str(result[0]))
         print_results(result[1], tamano)
-        controller.limpieza(result[1])
+        controller.limpieza(result)
+
     else:
         sys.exit(0)
 sys.exit(0)

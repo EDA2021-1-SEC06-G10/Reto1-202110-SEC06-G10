@@ -59,18 +59,32 @@ def addCategory(catalog, category):
 
 def newCategory(category_name, category_id):
     category = {'category_name': '', 'category_id': ''}
-    category['category_name'] = category_name
+    category['category_name'] = category_name.lower()
     category['category_id'] = category_id
     return category
 
 # Funciones de consulta
-def porPais(catalog, pais):
-    size= lt.size(catalog["videos"])
+def filtrado_pais(catalog, pais):
     lista_pais= lt.newList("ARRAY_LIST")
-    for i in range(0,size):
-        if catalog["videos"][i]["country"] == pais:
-            lt.addLast(lista_pais, catalog["videos"][i])
+    for video in lt.iterator(catalog["videos"]):
+        if video["country"]==pais:
+            lt.addLast(lista_pais,video)
     return lista_pais
+
+def filtrado_categoria(lista, categoria):
+    lista_filt_cat= lt.newList("ARRAY_LIST")
+    for video in lt.iterator(lista):
+        if video["category_id"]== categoria:
+            lt.addLast(lista_filt_cat,video)
+    return lista_filt_cat
+
+def idCat(catalog,categoria):
+    num_cat= None
+    for kategorien in lt.iterator(catalog["categories"]):
+        if categoria== kategorien["category_name"]:
+            num_cat = kategorien["category_id"]
+    return num_cat
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparechanneltitles(channel_title1, channel_title):
@@ -79,7 +93,7 @@ def comparechanneltitles(channel_title1, channel_title):
     return -1
 
 def comparetagnames(category_name, category):
-    return (category_name == category['name'])
+    return (category_name == category['category_name'])
  
 def compareviews(video1,video2):
     result = (video1["views"] < video2["views"])
@@ -87,8 +101,9 @@ def compareviews(video1,video2):
 
 # Funciones de ordenamiento
 
-def sortVideos(catalog, size):
-    sub_list = lt.subList(catalog["videos"],0,size)
+def sortVideos(lista):
+    size= lt.size(lista)
+    sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
     sorted_list = mer.sort(sub_list, compareviews)
