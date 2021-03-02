@@ -42,7 +42,7 @@ def printMenu():
     print("4- Encontrar tendencia por categoria")
     print("5- Buscar los videos con mas likes")
 
-def print_results(ord_vids, sample=10):
+def print_results(ord_vids, sample):
     size = lt.size(ord_vids)
     if size > sample:
         print("Los primeros ", sample, " videos en views son: ")
@@ -51,10 +51,11 @@ def print_results(ord_vids, sample=10):
             video= lt.getElement(ord_vids,i)
             print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ str(video["views"]))
             i += 1
+    else:
+        print("la cantidad que desea ver excede la cantidad de videos que desea ver")
 
-def initCatolog(tipo):
-    dataType(tipo)
-    return controller.initCatalog(tipo)
+def initCatolog():
+    return controller.initCatalog()
 
 def dataType(tipo):
     return tipo
@@ -71,38 +72,23 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        estructuraDeDatos = input('Ingrese el tipo de estructura de datos quiere usar (array o linked): ')
-        if estructuraDeDatos == 'array':
-            par_estruc = 'ARRAY_LIST'
-        elif estructuraDeDatos == 'linked':
-            par_estruc = 'LINKED_LIST'
-        estrucDatos = controller.dataType(par_estruc)
         print("Cargando información de los archivos .... ")
         t1 = time.process_time_ns()
-        catalog = initCatolog(par_estruc)
+        catalog = initCatolog()
         loadData(catalog)
         t2 = time.process_time_ns()
         print("El tiempo transcurrido fue: "+ str(t2-t1))
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
-        print('Canales autores cargados: ' + str(lt.size(catalog['channel_title'])))
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
-        algoritmo = int(input('Ingrese el tipo de algoritmo quiere usar (1)selection (2)insertion (3)shell (4)quick (5)merge: '))
-        size = int(input("Ingrese el tamaño de la muestra: "))
-        if algoritmo == 1:
-            par_algoritmo = "selec"
-        elif algoritmo == 2:
-            par_algoritmo = "inser"
-        elif algoritmo == 3:
-            par_algoritmo = "shell"
-        elif algoritmo == 4:
-            par_algoritmo = "quick"
-        elif algoritmo == 5:
-            par_algoritmo = "merge"
-        result = controller.sortVideos(catalog,size,par_algoritmo)
-        print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0]))
-        print_results(result[1])
+        pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
+        categoria = input("Ingrese la categoria que desea conocer: ")
+        tamano= int(input("Ingrese la cantidad de videos que desea ver: "))
+        filtrado_pais=controller.filtrado_pais(catalog, tamano)
+        result= filtrado_pais
+        print("El tiempo (mseg) es: ", str(result[0]))
+        print_results(result[1], tamano)
         controller.limpieza(result[1])
     else:
         sys.exit(0)

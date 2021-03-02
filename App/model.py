@@ -28,10 +28,6 @@
 import config as cf
 import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
-from DISClib.Algorithms.Sorting import insertionsort as ins
-from DISClib.Algorithms.Sorting import selectionsort as sel
-from DISClib.Algorithms.Sorting import quicksort as qck
 from DISClib.Algorithms.Sorting import mergesort as mer
 assert cf
 
@@ -41,28 +37,12 @@ los mismos.
 """
 
 # Construccion de modelos
-
-def dataType(tipo):
-    return tipo
-
-def newCatalog(tipo):
+def newCatalog():
     catalog = {'videos': None,
-                'channel_title': None,
                 'categories': None}
-    
-    tipos = dataType(tipo)
-    
-    if tipos == 'ARRAY_LIST':
-        catalog['videos'] = lt.newList('ARRAY_LIST')
-        catalog['channel_title'] = lt.newList('ARRAY_LIST', cmpfunction=comparechanneltitles)
-        catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
-    elif tipos == 'LINKED_LIST':
-        catalog['videos'] = lt.newList()
-        catalog['channel_title'] = lt.newList('LINKED_LIST', cmpfunction=comparechanneltitles)
-        catalog['categories'] = lt.newList('LINKED_LIST', cmpfunction=comparetagnames)
+    catalog['videos'] = lt.newList('ARRAY_LIST')
+    catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
     return catalog
-
-
 
 # Funciones para agregar informacion al catalogo
 
@@ -76,11 +56,6 @@ def addCategory(catalog, category):
 
 # Funciones para creacion de datos
 
-def newAuthor(name):
-    channel_title = {'name': '', 'videos': None, 'likes': 0}
-    channel_title['name'] = name
-    channel_title['videos'] = lt.newList('ARRAY_LIST')
-    return channel_title 
 
 def newCategory(category_name, category_id):
     category = {'category_name': '', 'category_id': ''}
@@ -89,7 +64,13 @@ def newCategory(category_name, category_id):
     return category
 
 # Funciones de consulta
-
+def porPais(catalog, pais):
+    size= lt.size(catalog["videos"])
+    lista_pais= lt.newList("ARRAY_LIST")
+    for i in range(0,size):
+        if catalog["videos"][i]["country"] == pais:
+            lt.addLast(lista_pais, catalog["videos"][i])
+    return lista_pais
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparechanneltitles(channel_title1, channel_title):
@@ -106,20 +87,11 @@ def compareviews(video1,video2):
 
 # Funciones de ordenamiento
 
-def sortVideos(catalog, size, ordenar):
+def sortVideos(catalog, size):
     sub_list = lt.subList(catalog["videos"],0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
-    if ordenar == "selec":
-        sorted_list = sel.sort(sub_list,compareviews)
-    elif ordenar == "inser":
-        sorted_list = ins.sort(sub_list,compareviews)
-    elif ordenar == "shell":
-        sorted_list = sa.sort(sub_list,compareviews)
-    elif ordenar == "quick":
-        sorted_list = qck.sort(sub_list, compareviews)
-    elif ordenar == "merge":
-        sorted_list = mer.sort(sub_list, compareviews)
+    sorted_list = mer.sort(sub_list, compareviews)
     t2= time.process_time()
     tiempo_ms= (t2-t1)*1000
     sub_list= None

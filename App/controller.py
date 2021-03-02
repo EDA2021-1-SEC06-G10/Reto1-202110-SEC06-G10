@@ -30,9 +30,8 @@ from time import time
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-def initCatalog(tipo):
-    dataType(tipo)
-    catalog = model.newCatalog(tipo)
+def initCatalog():
+    catalog = model.newCatalog()
     return catalog
 
 # Funciones para la carga de datos
@@ -75,15 +74,14 @@ def loadCategory(catalog):
         category['id'] = category_list[0]
         model.addCategory(catalog, category)
 
-def dataType(tipo):
-    return model.dataType(tipo)
-
 # Funciones de ordenamiento
 
 def sortVideos(catalog, size, ordenar):
-    return model.sortVideos(catalog, size, ordenar)
+    return model.sortVideos(catalog, size)
 
 def limpieza(lista):
     return model.limpieza(lista)
 
 # Funciones de consulta sobre el catálogo
+def filtrado_pais(catalog, pais):
+    return model.filtrado_pais(catalog, pais)
