@@ -46,10 +46,10 @@ def print_results(ord_vids, sample):
     size = lt.size(ord_vids)
     if size > sample:
         print("Los primeros ", sample, " videos en views son: ")
-        i = 0
-        while i < sample:
+        i = 1
+        while i <= sample:
             video= lt.getElement(ord_vids,i)
-            print("Titulo: " + video['title'] + " Canal: " + video["channel_title"]+ " Views: "+ str(video["views"]))
+            print("Titulo: " + video['title'] + " Fecha tendencia: " +  video["trending_date"]  + " Canal: " + video["channel_title"]+ " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]))
             i += 1
     else:
         print("la cantidad que desea ver excede la cantidad de videos que desea ver")

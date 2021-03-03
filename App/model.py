@@ -96,7 +96,7 @@ def comparetagnames(category_name, category):
     return (category_name == category['category_name'])
  
 def compareviews(video1,video2):
-    result = (video1["views"] < video2["views"])
+    result = (video1["views"] > video2["views"])
     return result
 
 # Funciones de ordenamiento
