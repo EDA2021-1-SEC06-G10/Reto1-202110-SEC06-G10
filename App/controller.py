@@ -23,7 +23,7 @@
 import config as cf
 import model
 import csv
-from time import time
+import time
 
 
 """
@@ -50,16 +50,15 @@ def loadVideos(catalog):
         filtrado["trending_date"] = video["trending_date"]
         filtrado["title"] = video["title"]
         filtrado["channel_title"] = video["channel_title"]
-        filtrado["category_id"] = int(video["category_id"])
-        filtrado["publish_time"] = video["publish_time"]
-        filtrado["tags"] = video["tags"]
-        filtrado["views"] = int(video["views"])
-        filtrado["likes"] = int(video["likes"])
-        filtrado["dislikes"] = int(video["dislikes"])
+        #filtrado["category_id"] = int(video["category_id"])
+        #filtrado["publish_time"] = video["publish_time"]
+        #filtrado["tags"] = video["tags"]
+        #filtrado["views"] = int(video["views"])
+        #filtrado["likes"] = int(video["likes"])
+        #filtrado["dislikes"] = int(video["dislikes"])
         filtrado["country"] = video["country"]
-
-        #video['trending_date'] = (filtrado['trending_time']) # FALTA LO DEL TIEMPO
-        #video['publish_time'] = (filtrado['publish_time']) # FALTA LO DEL TIEMPO
+        #filtrado['trending_time'] = datetime.strptime(video['trending_time'], '%y.%d.%m').date()
+        #filtrado['publish_time'] = datetime.strptime(video['publish_time'], '%y.%d.%m').date()
         model.addVideo(catalog, filtrado)
 
 def loadCategory(catalog):
@@ -75,6 +74,9 @@ def loadCategory(catalog):
 
 def sortVideos(lista):
     return model.sortVideos(lista)
+
+def sortVideosReq2(lista):
+    return model.sortVideosReq2(lista)
 
 def limpieza(lista):
     return model.limpieza(lista)

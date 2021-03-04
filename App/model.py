@@ -64,10 +64,11 @@ def newCategory(category_name, category_id):
     return category
 
 # Funciones de consulta
+
 def filtrado_pais(catalog, pais):
-    lista_pais= lt.newList("ARRAY_LIST")
+    lista_pais = lt.newList("ARRAY_LIST")
     for video in lt.iterator(catalog["videos"]):
-        if video["country"]==pais:
+        if video["country"] == pais:
             lt.addLast(lista_pais,video)
     return lista_pais
 
@@ -95,22 +96,37 @@ def comparechanneltitles(channel_title1, channel_title):
 def comparetagnames(category_name, category):
     return (category_name == category['category_name'])
  
-def compareviews(video1,video2):
+def compareviews(video1, video2):
     result = (video1["views"] > video2["views"])
+    return result
+
+def compareids(video1, video2):
+    result = (video1['video_id'] > video2['video_id'])
     return result
 
 # Funciones de ordenamiento
 
 def sortVideos(lista):
-    size= lt.size(lista)
+    size = lt.size(lista)
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
     sorted_list = mer.sort(sub_list, compareviews)
-    t2= time.process_time()
-    tiempo_ms= (t2-t1)*1000
-    sub_list= None
-    return tiempo_ms, sorted_list
+    t2 = time.process_time()
+    tiempo_ms = (t2-t1)*1000
+    sub_list = None
+    return (tiempo_ms, sorted_list)
+
+def sortVideosReq2(lista):
+    size = lt.size(lista)
+    sub_list = lt.subList(lista,0,size)
+    sub_list = sub_list.copy()
+    t1 = time.process_time()
+    sorted_list = mer.sort(sub_list, compareids)
+    t2 = time.process_time()
+    tiempo_ms = (t2-t1)*1000
+    sub_list = None
+    return (tiempo_ms, sorted_list)
 
 def limpieza(lista):
     lista= None

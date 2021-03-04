@@ -42,7 +42,7 @@ def printMenu():
     print("4- Encontrar tendencia por categoria")
     print("5- Buscar los videos con mas likes")
 
-def print_results(ord_vids, sample):
+def print_resultsReq1(ord_vids, sample):
     size = lt.size(ord_vids)
     if size > sample:
         print("Los primeros ", sample, " videos en views son: ")
@@ -52,7 +52,31 @@ def print_results(ord_vids, sample):
             print("Titulo: " + video['title'] + " Fecha tendencia: " +  video["trending_date"]  + " Canal: " + video["channel_title"]+ " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]))
             i += 1
     else:
-        print("la cantidad que desea ver excede la cantidad de videos que desea ver")
+        print("La cantidad que desea ver excede la cantidad de videos que desea ver")
+
+def print_resultsReq2(videos_ordenados):
+    posicion = 0
+    veces = 0
+    mayor = 0
+    size = lt.size(videos_ordenados)
+    i = 1
+    while i <= size:
+        if i != size:
+            id_video = lt.getElement(videos_ordenados, i)
+            id_video_2 = lt.getElement(videos_ordenados, i + 1)
+            if id_video['video_id'] == id_video_2['video_id']:
+                veces += 1
+            else: 
+                if veces > mayor:
+                    mayor = veces
+                    posicion = i
+                veces = 0
+            i += 1
+        else:
+            break
+
+    video = lt.getElement(videos_ordenados, posicion)
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'])
 
 def initCatolog():
     return controller.initCatalog()
@@ -91,12 +115,18 @@ while True:
         num_categoria = controller.idCat(catalog, categoria)
         filtrado_categoria = controller.filtrado_categoria(filtrado_pais, num_categoria)
 
-        result=controller.sortVideos(filtrado_categoria)
-        print(result)
+        result = controller.sortVideos(filtrado_categoria)
         print("El tiempo (mseg) es: ", str(result[0]))
-        print_results(result[1], tamano)
+        print_resultsReq1(result[1], tamano)
         controller.limpieza(result)
+    elif int(inputs[0]) == 3:
+        pais = input('Ingrese el pais para le cual desea realizar la búsqueda: ')
+        pais = pais.lower()
+        filtrado_pais = controller.filtrado_pais(catalog, pais)
 
+        result = controller.sortVideosReq2(filtrado_pais)
+        print_resultsReq2(result[1])
+        controller.limpieza(result)
     else:
         sys.exit(0)
 sys.exit(0)
