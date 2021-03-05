@@ -76,7 +76,7 @@ def print_resultsReq2(videos_ordenados):
             break
 
     video = lt.getElement(videos_ordenados, posicion)
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'])
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + 'Días:' + str(mayor))
 
 def initCatolog():
     return controller.initCatalog()
