@@ -86,6 +86,30 @@ def idCat(catalog,categoria):
             num_cat = kategorien["category_id"]
     return num_cat
 
+def tendenciaCat(lista):
+    size = lt.size(lista)
+    print(size)
+    top=0
+    i=0
+    while i < size:
+        veces = 1
+        j= i+1
+        centinela= True
+        video1= lt.getElement(lista,i)
+        while (j < size) and (centinela == True):
+            video2 = lt.getElement(lista,j)
+            if (video1["video_id"]==video2["video_id"]) and (video1["trending_date"]!= video2["trending_date"]):
+                veces+=1
+                j+=1
+            else:
+                centinela = False
+                i= j
+        if veces > top:
+            top=veces
+            mayor= video1
+        if i==(size-1):
+            i+=1
+    return mayor, top
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparechanneltitles(channel_title1, channel_title):
@@ -101,7 +125,7 @@ def compareviews(video1, video2):
     return result
 
 def compareids(video1, video2):
-    result = (video1['video_id'] > video2['video_id'])
+    result = (video1['video_id'] < video2['video_id'])
     return result
 
 # Funciones de ordenamiento

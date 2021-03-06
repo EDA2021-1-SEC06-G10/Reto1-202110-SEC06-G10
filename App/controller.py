@@ -91,3 +91,6 @@ def filtrado_categoria(lista, categoria):
 def idCat(catalog, categoria):
     num_cat= model.idCat(catalog, categoria)
     return num_cat
+
+def tendenciaCat(lista):
+    return model.tendenciaCat(lista)

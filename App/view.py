@@ -76,7 +76,12 @@ def print_resultsReq2(videos_ordenados):
             break
 
     video = lt.getElement(videos_ordenados, posicion)
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + 'Días:' + str(mayor))
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + ' Días: ' + str(mayor))
+
+def print_resultsReq3(tupla):
+    dias=tupla[1]
+    video=tupla[0]
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title'] + " Categoria: " + str( video['category_id'])+ " Dias: " + str(dias))
 
 def initCatolog():
     return controller.initCatalog()
@@ -120,6 +125,7 @@ while True:
         controller.limpieza(filtrado_categoria)
         controller.limpieza(filtrado_pais)
         controller.limpieza(result)
+
     elif int(inputs[0]) == 3:
         pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
         pais = pais.lower()
@@ -128,12 +134,17 @@ while True:
         print_resultsReq2(result[1])
         controller.limpieza(filtrado_pais)
         controller.limpieza(result)
+
     elif int(inputs[0]) == 4:
         categoria= input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
         categoria=categoria.lower()
+        categoria= " "+categoria
         lista= catalog["videos"]
         cat_num = controller.idCat(catalog, categoria)
         filtro_cat=controller.filtrado_categoria(lista, cat_num)
+        orden_id= controller.sortVideosReq2(filtro_cat)
+        video_mayor = controller.tendenciaCat(orden_id[1])
+        print_resultsReq3(video_mayor)
     else:
         sys.exit(0)
 sys.exit(0)
