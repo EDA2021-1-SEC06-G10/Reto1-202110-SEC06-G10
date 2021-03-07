@@ -54,29 +54,11 @@ def print_resultsReq1(ord_vids, sample):
     else:
         print("La cantidad que desea ver excede la cantidad de videos que desea ver")
 
-def print_resultsReq2(videos_ordenados):
-    posicion = 0
-    veces = 0
-    mayor = 0
-    size = lt.size(videos_ordenados)
-    i = 1
-    while i <= size:
-        if i != size:
-            id_video = lt.getElement(videos_ordenados, i)
-            id_video_2 = lt.getElement(videos_ordenados, i + 1)
-            if id_video['video_id'] == id_video_2['video_id']:
-                veces += 1
-            else: 
-                if veces > mayor:
-                    mayor = veces
-                    posicion = i
-                veces = 0
-            i += 1
-        else:
-            break
-
-    video = lt.getElement(videos_ordenados, posicion)
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + ' Días: ' + str(mayor))
+def print_resultsReq2(tupla, videos_ordenados):
+    dias = tupla[0]
+    video_tendencia = tupla[1]
+    video = lt.getElement(videos_ordenados, video_tendencia)
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + ' Días: ' + str(dias))
 
 def print_resultsReq3(tupla):
     dias=tupla[1]
@@ -85,9 +67,6 @@ def print_resultsReq3(tupla):
 
 def initCatolog():
     return controller.initCatalog()
-
-def dataType(tipo):
-    return tipo
 
 def loadData(catalog):
     controller.loadData(catalog)
@@ -109,6 +88,7 @@ while True:
         print("El tiempo transcurrido fue: "+ str(t2-t1))
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
+
     elif int(inputs[0]) == 2:
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
         pais= pais.lower()
@@ -131,7 +111,9 @@ while True:
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         result = controller.sortVideosReq2(filtrado_pais)
-        print_resultsReq2(result[1])
+        video_tendencia = controller.trendingInCountry(result[1])
+        print_resultsReq2(video_tendencia, result[1])
+        #print(result[1])
         controller.limpieza(filtrado_pais)
         controller.limpieza(result)
 
