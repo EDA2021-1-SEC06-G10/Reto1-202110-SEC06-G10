@@ -167,6 +167,9 @@ def comparelikes(video1, video2):
     result = (video1['likes'] > video2['likes'])
     return result
 
+def lista(catalog):
+    lista= catalog["videos"]
+    return lista
 # Funciones de ordenamiento
 
 def sortVideos(lista):
