@@ -124,9 +124,9 @@ def filtrado_tags_y_pais(catalog, tag, pais):
         del tag ingresado.
     """
     lista_tags_y_pais = lt.newList('ARRAY_LIST')
-    (tag == '""""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""""')
     for video in lt.iterator(catalog['videos']):
-        if (tag in video['tags']) and (video['country'] == pais):
+        tags = video['tags'].split('|')
+        if (('"' + tag + '"') in tags) and (video['country'] == pais):
             lt.addLast(lista_tags_y_pais, video)
     return lista_tags_y_pais
 
@@ -280,7 +280,7 @@ def comparelikes(video1, video2):
         condición (en este caso, True si los 'likes'
         del video1 son mayores que los del video2).
     """
-    result = (video1['likes'] > video2['likes'])
+    result = (int(video1['likes']) > int(video2['likes']))
     return result
 
 def lista(catalog):

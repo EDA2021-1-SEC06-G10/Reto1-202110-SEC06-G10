@@ -42,7 +42,7 @@ def loadData(catalog):
     
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'GoodReads/videos-small.csv'
+    videosfile = cf.data_dir + 'GoodReads/videos-med.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         filtrado= {}
@@ -54,11 +54,11 @@ def loadVideos(catalog):
         filtrado["publish_time"] = video["publish_time"]
         filtrado["tags"] = video["tags"]
         filtrado["country"] = video["country"]
-        #filtrado["views"] = int(video["views"])
-        #filtrado["likes"] = int(video["likes"])
-        #filtrado["dislikes"] = int(video["dislikes"])
-        #filtrado['trending_time'] = datetime.strptime(video['trending_time'], '%y.%d.%m').date()
-        #filtrado['publish_time'] = datetime.strptime(video['publish_time'], '%y.%d.%m').date()
+        filtrado["views"] = video["views"]
+        filtrado["likes"] = video["likes"]
+        filtrado["dislikes"] = video["dislikes"]
+        filtrado['trending_date'] = video['trending_date']
+        filtrado['publish_time'] = video['publish_time']
         model.addVideo(catalog, filtrado)
 
 def loadCategory(catalog):

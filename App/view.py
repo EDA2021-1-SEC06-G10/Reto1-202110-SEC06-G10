@@ -104,9 +104,9 @@ while True:
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
         pais= pais.lower()
         categoria = input("Ingrese la categoria que desea conocer: ")
-        categoria= categoria.lower()
-        categoria= " "+categoria
-        tamano= int(input("Ingrese la cantidad de videos que desea ver: "))
+        categoria = categoria.lower()
+        categoria = " " + categoria
+        tamano = int(input("Ingrese la cantidad de videos que desea ver: "))
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         num_categoria = controller.idCat(catalog, categoria)
         filtrado_categoria = controller.filtrado_categoria(filtrado_pais, num_categoria)
@@ -142,12 +142,11 @@ while True:
     elif int(inputs[0]) == 5: # Print Requerimiento 4
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
         pais = pais.lower()
-        tag = input("Ingrese el tag que desea que buscar: ")
-        sample = int(input('Ingrese la cantidad de video que desea ver: '))
+        tag = input("Ingrese el tag que desea que buscar (si es una palabra, importan las mayúsculas): " )
+        sample = int(input("Ingrese la cantidad de video que desea ver: "))
         filtrado_tags_y_pais = controller.filtrado_tags_y_pais(catalog, tag, pais)
         videos_likes = controller.sortVideosReq4(filtrado_tags_y_pais)
         print_resultsReq4(videos_likes[1], sample)
-        #print(videos_likes[1])
 
     else:
         sys.exit(0)
