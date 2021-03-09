@@ -121,7 +121,7 @@ while True:
         categoria= input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
         categoria=categoria.lower()
         categoria= " "+categoria
-        lista= catalog["videos"]
+        lista= controller.lista(catalog)
         cat_num = controller.idCat(catalog, categoria)
         filtro_cat=controller.filtrado_categoria(lista, cat_num)
         orden_id= controller.sortVideosReq2(filtro_cat)

@@ -152,6 +152,9 @@ def compareids(video1, video2):
     result = (video1['video_id'] < video2['video_id'])
     return result
 
+def lista(catalog):
+    lista= catalog["videos"]
+    return lista
 # Funciones de ordenamiento
 
 def sortVideos(lista):

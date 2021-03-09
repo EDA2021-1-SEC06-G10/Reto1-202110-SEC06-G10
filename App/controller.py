@@ -86,6 +86,9 @@ def limpieza(lista):
 def filtrado_pais(catalog, pais):
     return model.filtrado_pais(catalog, pais)
 
+def lista(catalog):
+    return model.lista(catalog)
+    
 def filtrado_categoria(lista, categoria):
     return model.filtrado_categoria(lista, categoria)
 
