@@ -71,7 +71,7 @@ def print_resultsReq4(ord_vids, sample):
         i = 1
         while i <= sample:
             video= lt.getElement(ord_vids,i)
-            print("Titulo: " + video['title'] + " Nombre del canal: " + video["channel_title"] + " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]) + ' Tags: ' + video['tags'] + '.')
+            print("Titulo: " + video['title'] + " Nombre del canal: " + video["channel_title"] + " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]) + ' Tags: ' + video['tags'] + '. ')
             i += 1
     else:
         print("La cantidad que desea ver excede la cantidad de videos que desea ver")

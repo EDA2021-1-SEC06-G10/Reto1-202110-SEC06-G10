@@ -44,22 +44,42 @@ def newCatalog():
     catalog = {'videos': None,
                 'categories': None}
     catalog['videos'] = lt.newList('ARRAY_LIST')
-    catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparetagnames)
+    catalog['categories'] = lt.newList('ARRAY_LIST', cmpfunction=comparecatnames)
     return catalog
 
 # Funciones para agregar informacion al catalogo
 
 def addVideo(catalog, video):
+    """Agrega un video al final del catalogo
+    Parametros:
+        catalog: el catálogo principal creado
+        en la función 'newCatalog()'.
+
+        video: diccionario con la informacion
+        del video 
+    """
     lt.addLast(catalog['videos'], video)
 
 
 def addCategory(catalog, category):
+    """Agrega un video al final de la lista de categorias en el catalogo
+    Parametros:
+        catalog: el catálogo principal creado
+        en la función 'newCatalog()'.
+
+        categoria: diccionario con la informacion
+        de la categoria 
+    """
     c = newCategory(category['name'], category['id'])
     lt.addLast(catalog['categories'], c)
 
 # Funciones para creacion de datos
 
 def newCategory(category_name, category_id):
+    """Se crea un nuevo diccionario para cada categoria en el cual se guarda el id y el nombre de la categoria
+    Return:
+        Un diccionario con la informacion de la categoria.
+    """
     category = {'category_name': '', 'category_id': ''}
     category['category_name'] = category_name.lower()
     category['category_id'] = category_id
@@ -107,7 +127,7 @@ def filtrado_categoria(lista, categoria):
             lt.addLast(lista_filt_cat,video)
     return lista_filt_cat
 
-def filtrado_tags_y_pais(catalog, tag, pais):
+def filtrado_tags(catalog, tag, pais):
     """ Filtra los datos y hace una lista nueva
     con los datos del pais y del tag ingreado.
 
@@ -126,11 +146,22 @@ def filtrado_tags_y_pais(catalog, tag, pais):
     lista_tags_y_pais = lt.newList('ARRAY_LIST')
     (tag == '""""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""""')
     for video in lt.iterator(catalog['videos']):
-        if (tag in video['tags']) and (video['country'] == pais):
+        if (tag in video['tags']):
             lt.addLast(lista_tags_y_pais, video)
     return lista_tags_y_pais
 
 def idCat(catalog,categoria):
+    """
+    Encuentra el id de la categoria que entra por parametro
+    Parámetros:
+        catalog: el catálogo principal creado
+        en la función 'newCatalog()'.
+        
+        categoria: nombre de la categoria en la cual el usuario desea hacer su busqueda
+    Return:
+        el int que corresponde a la categoria ingresada por parametro.
+
+        """
     num_cat = None
     for kategorien in lt.iterator(catalog["categories"]):
         if categoria == kategorien["category_name"]:
@@ -219,12 +250,8 @@ def trendingInCountry(videos_ordenados):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
-def comparechanneltitles(channel_title1, channel_title):
-    if (channel_title1.lower() in channel_title['name'].lower()):
-        return 0
-    return -1
-
-def comparetagnames(category_name, category):
+def comparecatnames(category_name, category):
+    """compara el nombre de la categoria que entra por parametro con uno de los que ya se encuentran en el catalogo"""
     return (category_name == category['category_name'])
  
 def compareviews(video1, video2):
@@ -284,6 +311,14 @@ def comparelikes(video1, video2):
     return result
 
 def lista(catalog):
+    """Retorna la lista de los videos
+    Parámetros:
+    catalog: el catálogo principal creado
+        en la función 'newCatalog()'.
+
+    Return: 
+    Retorna la lista de los videos que se encuentra dentro del catalogo
+    """
     lista = catalog["videos"]
     return lista
 
@@ -362,5 +397,7 @@ def sortVideosReq4(lista):
     return (tiempo_ms, sorted_list)
 
 def limpieza(lista):
+    """Esta funcion recibe como parametro cualquier tipo de dato que es requerido temporalmente 
+    y lo retorna none para evitar que se llene la memoria RAM"""
     lista = None
     return lista
