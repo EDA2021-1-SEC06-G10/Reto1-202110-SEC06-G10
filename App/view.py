@@ -124,15 +124,14 @@ while True:
         orden_id = controller.sortVideosReq2(filtro_cat)
         video_mayor = controller.tendenciaCat(orden_id[1])
         print_resultsReq3(video_mayor)
-        controller.limpieza(video_mayor)
+        controller.limpieza(lista)
+        controller.limpieza(filtro_cat)
 
-    elif int(inputs[0] == 5): # Print Requerimiento 4
-        pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
-        pais = pais.lower()
-        tag = input('Ingrese la etiqueta del video para la cual desea realizar la búsqueda: ')
-        tag = tag.lower()
-        tamano = int(input("Ingrese la cantidad de videos que desea ver: "))
-
+    elif int(inputs[0]) == 5:
+        pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
+        pais= pais.lower()
+        tag= input("Ingrese el tag que desea que buscar")
+        filtro_pais=filtrado_pais(catalog, pais)
     else:
         sys.exit(0)
 sys.exit(0)
