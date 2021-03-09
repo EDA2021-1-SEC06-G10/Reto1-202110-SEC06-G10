@@ -54,16 +54,15 @@ def print_resultsReq1(ord_vids, sample):
     else:
         print("La cantidad que desea ver excede la cantidad de videos que desea ver")
 
-def print_resultsReq2(tupla, videos_ordenados):
+def print_resultsReq2(tupla):
     dias = tupla[0]
     video_tendencia = tupla[1]
-    video = lt.getElement(videos_ordenados, video_tendencia)
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title']  + ' País: ' + video['country'] + ' Días: ' + str(dias))
+    print("Titulo: " + video_tendencia['title'] + " Nombre del canal: " +  video_tendencia['channel_title']  + ' País: ' + video_tendencia['country'] + ' Días: ' + str(dias))
 
 def print_resultsReq3(tupla):
-    dias=tupla[1]
-    video=tupla[0]
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title'] + " Categoria: " + str( video['category_id'])+ " Dias: " + str(dias))
+    dias = tupla[1]
+    video = tupla[0]
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title'] + " Categoria: " + str(video['category_id'])+ " Dias: " + str(dias))
 
 def initCatolog():
     return controller.initCatalog()
@@ -89,7 +88,7 @@ while True:
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorías cargadas: ' + str(lt.size(catalog['categories'])))
 
-    elif int(inputs[0]) == 2:
+    elif int(inputs[0]) == 2: # Print Requerimiento 1
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
         pais= pais.lower()
         categoria = input("Ingrese la categoria que desea conocer: ")
@@ -106,27 +105,34 @@ while True:
         controller.limpieza(filtrado_pais)
         controller.limpieza(result)
 
-    elif int(inputs[0]) == 3:
+    elif int(inputs[0]) == 3: # Print Requerimiento 2
         pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         result = controller.sortVideosReq2(filtrado_pais)
         video_tendencia = controller.trendingInCountry(result[1])
-        print_resultsReq2(video_tendencia, result[1])
-        #print(result[1])
-        controller.limpieza(filtrado_pais)
-        controller.limpieza(result)
+        print_resultsReq2(video_tendencia)
+        controller.limpieza(video_tendencia)
 
-    elif int(inputs[0]) == 4:
-        categoria= input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
-        categoria=categoria.lower()
-        categoria= " "+categoria
-        lista= catalog["videos"]
+    elif int(inputs[0]) == 4: # Print Requerimiento 3
+        categoria = input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
+        categoria = categoria.lower()
+        categoria = " "+categoria
+        lista = catalog["videos"]
         cat_num = controller.idCat(catalog, categoria)
-        filtro_cat=controller.filtrado_categoria(lista, cat_num)
-        orden_id= controller.sortVideosReq2(filtro_cat)
+        filtro_cat = controller.filtrado_categoria(lista, cat_num)
+        orden_id = controller.sortVideosReq2(filtro_cat)
         video_mayor = controller.tendenciaCat(orden_id[1])
         print_resultsReq3(video_mayor)
+        controller.limpieza(video_mayor)
+
+    elif int(inputs[0] == 5): # Print Requerimiento 4
+        pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
+        pais = pais.lower()
+        tag = input('Ingrese la etiqueta del video para la cual desea realizar la búsqueda: ')
+        tag = tag.lower()
+        tamano = int(input("Ingrese la cantidad de videos que desea ver: "))
+
     else:
         sys.exit(0)
 sys.exit(0)

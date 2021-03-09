@@ -70,13 +70,13 @@ def filtrado_pais(catalog, pais):
     lista_pais = lt.newList("ARRAY_LIST")
     for video in lt.iterator(catalog["videos"]):
         if video["country"] == pais:
-            lt.addLast(lista_pais,video)
+            lt.addLast(lista_pais, video)
     return lista_pais
 
 def filtrado_categoria(lista, categoria):
     lista_filt_cat= lt.newList("ARRAY_LIST")
     for video in lt.iterator(lista):
-        if video["category_id"]== categoria:
+        if video["category_id"] == categoria:
             lt.addLast(lista_filt_cat,video)
     return lista_filt_cat
 
@@ -89,13 +89,12 @@ def idCat(catalog,categoria):
 
 def tendenciaCat(lista):
     size = lt.size(lista)
-    print(size)
-    top=0
-    i=0
+    top = 0
+    i = 0
     while i < size:
         veces = 1
-        j= i+1
-        centinela= True
+        j = i+1
+        centinela = True
         video1= lt.getElement(lista,i)
         while (j < size) and (centinela == True):
             video2 = lt.getElement(lista,j)
@@ -110,15 +109,15 @@ def tendenciaCat(lista):
             mayor= video1
         if i==(size-1):
             i+=1
-    return mayor, top
+    return (mayor, top)
 
 def trendingInCountry(videos_ordenados):
     posicion = 0
     veces = 1
-    mayor = 0
+    mayor = 1
     size = lt.size(videos_ordenados)
-    i = 1
-    while i <= size:
+    i = 0
+    while i < size:
         if i != size:
             id_video = lt.getElement(videos_ordenados, i)
             id_video_2 = lt.getElement(videos_ordenados, i + 1)
@@ -128,11 +127,18 @@ def trendingInCountry(videos_ordenados):
                 if veces > mayor:
                     mayor = veces
                     posicion = i
-                veces = 0
+                veces = 1
             i += 1
         else:
-            break
-    return (mayor, posicion)
+            if i == size:
+                break
+    
+    video = lt.getElement(videos_ordenados, posicion)
+    return (mayor, video)
+
+def imprimir(catalog):
+    for video in lt.iterator(catalog['videos']):
+        print(video['tags'])
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -149,7 +155,11 @@ def compareviews(video1, video2):
     return result
 
 def compareids(video1, video2):
-    result = (video1['video_id'] < video2['video_id'])
+    result = (video1['video_id'] > video2['video_id'])
+    return result
+
+def comparelikes(video1, video2):
+    result = (video1['likes'] > video2['likes'])
     return result
 
 # Funciones de ordenamiento
