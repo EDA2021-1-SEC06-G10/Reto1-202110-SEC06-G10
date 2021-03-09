@@ -49,7 +49,7 @@ def print_resultsReq1(ord_vids, sample):
         i = 1
         while i <= sample:
             video= lt.getElement(ord_vids,i)
-            print("Titulo: " + video['title'] + " Fecha tendencia: " +  video["trending_date"]  + " Canal: " + video["channel_title"]+ " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]))
+            print("Titulo: " + video['title'] + " Fecha tendencia: " +  video["trending_date"]  + " Canal: " + video["channel_title"]+ " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]) + '.')
             i += 1
     else:
         print("La cantidad que desea ver excede la cantidad de videos que desea ver")
@@ -57,12 +57,24 @@ def print_resultsReq1(ord_vids, sample):
 def print_resultsReq2(tupla):
     dias = tupla[0]
     video_tendencia = tupla[1]
-    print("Titulo: " + video_tendencia['title'] + " Nombre del canal: " +  video_tendencia['channel_title']  + ' País: ' + video_tendencia['country'] + ' Días: ' + str(dias))
+    print("Titulo: " + video_tendencia['title'] + " Nombre del canal: " +  video_tendencia['channel_title']  + ' País: ' + video_tendencia['country'] + ' Días: ' + str(dias) + ' ** Tags ** : ' + video_tendencia['tags'] + '.')
 
 def print_resultsReq3(tupla):
-    dias = tupla[1]
-    video = tupla[0]
-    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title'] + " Categoria: " + str(video['category_id'])+ " Dias: " + str(dias))
+    dias = tupla[0]
+    video = tupla[1]
+    print("Titulo: " + video['title'] + " Nombre del canal: " +  video['channel_title'] + " Categoria: " + str(video['category_id'])+ " Dias: " + str(dias) + '.')
+
+def print_resultsReq4(ord_vids, sample):
+    size = lt.size(ord_vids)
+    if size > sample:
+        print("Los " + str(sample) + " videos con más likes son : ")
+        i = 1
+        while i <= sample:
+            video= lt.getElement(ord_vids,i)
+            print("Titulo: " + video['title'] + " Nombre del canal: " + video["channel_title"] + " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]) + ' Tags: ' + video['tags'] + '.')
+            i += 1
+    else:
+        print("La cantidad que desea ver excede la cantidad de videos que desea ver")
 
 def initCatolog():
     return controller.initCatalog()
@@ -109,7 +121,7 @@ while True:
         pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
-        result = controller.sortVideosReq2(filtrado_pais)
+        result = controller.sortVideosReq2y3(filtrado_pais)
         video_tendencia = controller.trendingInCountry(result[1])
         print_resultsReq2(video_tendencia)
         controller.limpieza(video_tendencia)
@@ -121,17 +133,22 @@ while True:
         lista = catalog["videos"]
         cat_num = controller.idCat(catalog, categoria)
         filtro_cat = controller.filtrado_categoria(lista, cat_num)
-        orden_id = controller.sortVideosReq2(filtro_cat)
+        orden_id = controller.sortVideosReq2y3(filtro_cat)
         video_mayor = controller.tendenciaCat(orden_id[1])
         print_resultsReq3(video_mayor)
         controller.limpieza(lista)
         controller.limpieza(filtro_cat)
 
-    elif int(inputs[0]) == 5:
+    elif int(inputs[0]) == 5: # Print Requerimiento 4
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
-        pais= pais.lower()
-        tag= input("Ingrese el tag que desea que buscar")
-        filtro_pais=filtrado_pais(catalog, pais)
+        pais = pais.lower()
+        tag = input("Ingrese el tag que desea que buscar: ")
+        sample = int(input('Ingrese la cantidad de video que desea ver: '))
+        filtrado_tags_y_pais = controller.filtrado_tags_y_pais(catalog, tag, pais)
+        videos_likes = controller.sortVideosReq4(filtrado_tags_y_pais)
+        print_resultsReq4(videos_likes[1], sample)
+        #print(videos_likes[1])
+
     else:
         sys.exit(0)
 sys.exit(0)

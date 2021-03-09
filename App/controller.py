@@ -70,16 +70,16 @@ def loadCategory(catalog):
         category['id'] = int(category_list[0])
         model.addCategory(catalog, category)
 
-def imprimir(catalog):
-    return model.imprimir(catalog)
-    
 # Funciones de ordenamiento
 
 def sortVideos(lista):
     return model.sortVideos(lista)
 
-def sortVideosReq2(lista):
-    return model.sortVideosReq2(lista)
+def sortVideosReq2y3(lista):
+    return model.sortVideosReq2y3(lista)
+
+def sortVideosReq4(lista):
+    return model.sortVideosReq4(lista)
 
 def limpieza(lista):
     return model.limpieza(lista)
@@ -91,6 +91,9 @@ def filtrado_pais(catalog, pais):
 
 def filtrado_categoria(lista, categoria):
     return model.filtrado_categoria(lista, categoria)
+
+def filtrado_tags_y_pais(catalog, tag, pais):
+    return model.filtrado_tags_y_pais(catalog, tag, pais)
 
 def idCat(catalog, categoria):
     num_cat= model.idCat(catalog, categoria)

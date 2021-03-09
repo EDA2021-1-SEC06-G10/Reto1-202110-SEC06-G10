@@ -30,6 +30,7 @@ import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import mergesort as mer
 from DISClib.Algorithms.Sorting import shellsort as she
+from DISClib.Algorithms.Sorting import quicksort as qui
 assert cf
 
 """
@@ -38,6 +39,7 @@ los mismos.
 """
 
 # Construccion de modelos
+
 def newCatalog():
     catalog = {'videos': None,
                 'categories': None}
@@ -57,14 +59,13 @@ def addCategory(catalog, category):
 
 # Funciones para creacion de datos
 
-
 def newCategory(category_name, category_id):
     category = {'category_name': '', 'category_id': ''}
     category['category_name'] = category_name.lower()
     category['category_id'] = category_id
     return category
 
-# Funciones de consulta
+# Funciones de consulta/filtrado
 
 def filtrado_pais(catalog, pais):
     lista_pais = lt.newList("ARRAY_LIST")
@@ -79,6 +80,14 @@ def filtrado_categoria(lista, categoria):
         if video["category_id"] == categoria:
             lt.addLast(lista_filt_cat,video)
     return lista_filt_cat
+
+def filtrado_tags_y_pais(catalog, tag, pais):
+    lista_tags_y_pais = lt.newList('ARRAY_LIST')
+    (tag == '""""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""') or (tag == '""""|' + tag + '|""""""')
+    for video in lt.iterator(catalog['videos']):
+        if tag in video['tags'] and video['country'] == pais:
+            lt.addLast(lista_tags_y_pais, video)
+    return lista_tags_y_pais
 
 def idCat(catalog,categoria):
     num_cat= None
@@ -103,13 +112,13 @@ def tendenciaCat(lista):
                 j+=1
             else:
                 centinela = False
-                i= j
+                i=j
         if veces > top:
             top=veces
             mayor= video1
         if i==(size-1):
             i+=1
-    return (mayor, top)
+    return (top, mayor)
 
 def trendingInCountry(videos_ordenados):
     posicion = 0
@@ -135,10 +144,6 @@ def trendingInCountry(videos_ordenados):
     
     video = lt.getElement(videos_ordenados, posicion)
     return (mayor, video)
-
-def imprimir(catalog):
-    for video in lt.iterator(catalog['videos']):
-        print(video['tags'])
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -175,12 +180,23 @@ def sortVideos(lista):
     sub_list = None
     return (tiempo_ms, sorted_list)
 
-def sortVideosReq2(lista):
+def sortVideosReq2y3(lista):
     size = lt.size(lista)
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
     sorted_list = she.sort(sub_list, compareids)
+    t2 = time.process_time()
+    tiempo_ms = (t2-t1)*1000
+    sub_list = None
+    return (tiempo_ms, sorted_list)
+
+def sortVideosReq4(lista):
+    size = lt.size(lista)
+    sub_list = lt.subList(lista,0,size)
+    sub_list = sub_list.copy()
+    t1 = time.process_time()
+    sorted_list = qui.sort(sub_list, comparelikes)
     t2 = time.process_time()
     tiempo_ms = (t2-t1)*1000
     sub_list = None
