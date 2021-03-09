@@ -23,7 +23,7 @@
 import config as cf
 import model
 import csv
-import time
+from datetime import datetime
 
 
 """
@@ -50,13 +50,13 @@ def loadVideos(catalog):
         filtrado["trending_date"] = video["trending_date"]
         filtrado["title"] = video["title"]
         filtrado["channel_title"] = video["channel_title"]
-        #filtrado["category_id"] = int(video["category_id"])
+        filtrado["category_id"] = video["category_id"]
         filtrado["publish_time"] = video["publish_time"]
         filtrado["tags"] = video["tags"]
+        filtrado["country"] = video["country"]
         #filtrado["views"] = int(video["views"])
         #filtrado["likes"] = int(video["likes"])
         #filtrado["dislikes"] = int(video["dislikes"])
-        filtrado["country"] = video["country"]
         #filtrado['trending_time'] = datetime.strptime(video['trending_time'], '%y.%d.%m').date()
         #filtrado['publish_time'] = datetime.strptime(video['publish_time'], '%y.%d.%m').date()
         model.addVideo(catalog, filtrado)
@@ -70,6 +70,9 @@ def loadCategory(catalog):
         category['id'] = int(category_list[0])
         model.addCategory(catalog, category)
 
+def imprimir(catalog):
+    return model.imprimir(catalog)
+    
 # Funciones de ordenamiento
 
 def sortVideos(lista):
