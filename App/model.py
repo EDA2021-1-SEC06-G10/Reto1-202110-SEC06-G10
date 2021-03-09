@@ -29,6 +29,7 @@ import config as cf
 import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import mergesort as mer
+from DISClib.Algorithms.Sorting import shellsort as she
 assert cf
 
 """
@@ -110,6 +111,29 @@ def tendenciaCat(lista):
         if i==(size-1):
             i+=1
     return mayor, top
+
+def trendingInCountry(videos_ordenados):
+    posicion = 0
+    veces = 1
+    mayor = 0
+    size = lt.size(videos_ordenados)
+    i = 1
+    while i <= size:
+        if i != size:
+            id_video = lt.getElement(videos_ordenados, i)
+            id_video_2 = lt.getElement(videos_ordenados, i + 1)
+            if id_video['video_id'] == id_video_2['video_id']:
+                veces += 1
+            else: 
+                if veces > mayor:
+                    mayor = veces
+                    posicion = i
+                veces = 0
+            i += 1
+        else:
+            break
+    return (mayor, posicion)
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparechanneltitles(channel_title1, channel_title):
@@ -146,7 +170,7 @@ def sortVideosReq2(lista):
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
-    sorted_list = mer.sort(sub_list, compareids)
+    sorted_list = she.sort(sub_list, compareids)
     t2 = time.process_time()
     tiempo_ms = (t2-t1)*1000
     sub_list = None
