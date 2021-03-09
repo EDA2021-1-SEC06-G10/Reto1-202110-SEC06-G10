@@ -99,8 +99,7 @@ def filtrado_tags_y_pais(catalog, tag, pais):
     return model.filtrado_tags_y_pais(catalog, tag, pais)
 
 def idCat(catalog, categoria):
-    num_cat= model.idCat(catalog, categoria)
-    return num_cat
+    return model.idCat(catalog, categoria)
 
 def tendenciaCat(lista):
     return model.tendenciaCat(lista)
