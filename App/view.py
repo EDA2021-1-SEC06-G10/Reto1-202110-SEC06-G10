@@ -134,6 +134,7 @@ while True:
         pais = input("Ingrese el pais para el cual desea realizar la búsqueda: ")
         pais= pais.lower()
         tag= input("Ingrese el tag que desea que buscar")
+        filtro_pais=filtrado_pais(catalog, pais)
     else:
         sys.exit(0)
 sys.exit(0)
