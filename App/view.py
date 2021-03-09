@@ -145,6 +145,10 @@ while True:
         orden_id= controller.sortVideosReq2(filtro_cat)
         video_mayor = controller.tendenciaCat(orden_id[1])
         print_resultsReq3(video_mayor)
+        controller.limpieza(lista)
+        controller.limpieza(filtro_cat)
+
+    elif int(inputs[0]) == 5:
     else:
         sys.exit(0)
 sys.exit(0)
