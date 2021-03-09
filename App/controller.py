@@ -42,6 +42,8 @@ def loadData(catalog):
     
 
 def loadVideos(catalog):
+    """Crea un diccionario con la informacion del video para que sea posteriormente agregado
+    al catalogo en su lista correspondiente"""
     videosfile = cf.data_dir + 'GoodReads/videos-small.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
@@ -62,6 +64,9 @@ def loadVideos(catalog):
         model.addVideo(catalog, filtrado)
 
 def loadCategory(catalog):
+    """Crea un diccionario con la informacion de la categoria
+    para que sea posteriormente agregado
+    al catalogo en su lista correspondiente"""
     categoriesfile = cf.data_dir + 'GoodReads/category-id.csv'
     input_file = csv.DictReader(open(categoriesfile, encoding='utf-8'))
     for category in input_file:
@@ -73,26 +78,33 @@ def loadCategory(catalog):
 # Funciones de ordenamiento
 
 def sortVideos(lista):
+    """Llama a la funcion sortVideos del modelo"""
     return model.sortVideos(lista)
 
 def sortVideosReq2y3(lista):
+    """Llama a la funcion sortVideosReq2y3 del modelo"""
     return model.sortVideosReq2y3(lista)
 
 def sortVideosReq4(lista):
+    """Llama a la funcion 'sortVideosReq4()' del modelo"""
     return model.sortVideosReq4(lista)
 
 def limpieza(lista):
+    """Llama a la funcion 'limpieza()' del modelo"""
     return model.limpieza(lista)
 
 # Funciones de consulta sobre el catálogo
 
 def filtrado_pais(catalog, pais):
+    """Llama a la funcion 'filtrado_pais()' del modelo"""
     return model.filtrado_pais(catalog, pais)
 
 def lista(catalog):
+    """Llama a la funcion 'lista()' del modelo"""
     return model.lista(catalog)
     
 def filtrado_categoria(lista, categoria):
+    """Llama a la funcion 'filtrado_categoria()' del modelo"""
     return model.filtrado_categoria(lista, categoria)
 
 def filtrado_tags_y_pais(catalog, tag, pais):
