@@ -51,8 +51,6 @@ def print_resultsReq1(ord_vids, sample):
             video= lt.getElement(ord_vids,i)
             print("Titulo: " + video['title'] + " Fecha tendencia: " +  video["trending_date"]  + " Canal: " + video["channel_title"]+ " Momento de publicacion: " + video["publish_time"] + " Views: "+ str(video["views"]) + " Likes: " + str(video["likes"])+ " Dislikes: " + str(video["dislikes"]) + '.')
             i += 1
-    else:
-        print("La cantidad que desea ver excede la cantidad de videos que desea ver")
 
 def print_resultsReq2(tupla):
     dias = tupla[0]
@@ -122,7 +120,7 @@ while True:
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         result = controller.sortVideosReq2y3(filtrado_pais)
-        video_tendencia = controller.trendingInCountry(result[1])
+        video_tendencia = controller.trending(result[1])
         print_resultsReq2(video_tendencia)
         controller.limpieza(video_tendencia)
 
@@ -134,7 +132,7 @@ while True:
         cat_num = controller.idCat(catalog, categoria)
         filtro_cat = controller.filtrado_categoria(lista, cat_num)
         orden_id = controller.sortVideosReq2y3(filtro_cat)
-        video_mayor = controller.tendenciaCat(orden_id[1])
+        video_mayor = controller.trending(orden_id[1])
         print_resultsReq3(video_mayor)
         controller.limpieza(lista)
         controller.limpieza(filtro_cat)
@@ -144,8 +142,10 @@ while True:
         pais = pais.lower()
         tag = input("Ingrese el tag que desea que buscar (si es una palabra, importan las mayúsculas): " )
         sample = int(input("Ingrese la cantidad de video que desea ver: "))
-        filtrado_tags_y_pais = controller.filtrado_tags_y_pais(catalog, tag, pais)
+        filtrado_pais = controller.filtrado_pais(catalog, pais)
+        filtrado_tags_y_pais = controller.filtrado_tags(filtrado_pais, tag)
         videos_likes = controller.sortVideosReq4(filtrado_tags_y_pais)
+        #sin_rep= controller.sin_repeticiones(videos_likes[1])
         print_resultsReq4(videos_likes[1], sample)
 
     else:

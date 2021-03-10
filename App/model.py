@@ -127,7 +127,7 @@ def filtrado_categoria(lista, categoria):
             lt.addLast(lista_filt_cat,video)
     return lista_filt_cat
 
-def filtrado_tags(catalog, tag, pais):
+def filtrado_tags(lista, tag):
     """ Filtra los datos y hace una lista nueva
     con los datos del pais y del tag ingreado.
 
@@ -144,9 +144,9 @@ def filtrado_tags(catalog, tag, pais):
         del tag ingresado.
     """
     lista_tags_y_pais = lt.newList('ARRAY_LIST')
-    for video in lt.iterator(catalog['videos']):
+    for video in lt.iterator(lista):
         tags = video['tags'].split('|')
-        if (('"' + tag + '"') in tags) and (video['country'] == pais):
+        if (('"' + tag + '"') in tags):
             lt.addLast(lista_tags_y_pais, video)
     return lista_tags_y_pais
 
@@ -168,47 +168,7 @@ def idCat(catalog,categoria):
             num_cat = kategorien["category_id"]
     return num_cat
 
-def tendenciaCat(lista):
-    """ Recorre la lista ordenada y cuenta cuántas
-        veces se repite un id. La condición: si se 
-        encuentran dos videos con el mismo id y el
-        mismo 'trending_date', el contador aumenta,
-        sino, no.
-
-    Parámetros:
-        lista: es la lista ordenada que se va a
-        recorer.
-    
-    Return:
-        Una tupla en la que la primera posición
-        es las veces que apareció en la lista
-        (días en trending) y la segunda posisición
-        es el video que estuvo más días en trending.
-    """
-    size = lt.size(lista)
-    top = 0
-    i = 0
-    while i < size:
-        veces = 1
-        j = i+1
-        centinela = True
-        video1= lt.getElement(lista,i)
-        while (j < size) and (centinela == True):
-            video2 = lt.getElement(lista,j)
-            if (video1["video_id"]==video2["video_id"]) and (video1["trending_date"]!= video2["trending_date"]):
-                veces+=1
-                j+=1
-            else:
-                centinela = False
-                i=j
-        if veces > top:
-            top=veces
-            mayor= video1
-        if i==(size-1):
-            i+=1
-    return (top, mayor)
-
-def trendingInCountry(videos_ordenados):
+def trending(videos_ordenados):
     """ Recorre la lista ordenada y cuenta cuántas
         veces se repite un id. La condición: si se 
         encuentran dos videos con el mismo id, 

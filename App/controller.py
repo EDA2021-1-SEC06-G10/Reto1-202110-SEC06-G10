@@ -44,7 +44,7 @@ def loadData(catalog):
 def loadVideos(catalog):
     """Crea un diccionario con la informacion del video para que sea posteriormente agregado
     al catalogo en su lista correspondiente"""
-    videosfile = cf.data_dir + 'GoodReads/videos-small.csv'
+    videosfile = cf.data_dir + 'GoodReads/videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         filtrado= {}
@@ -52,13 +52,13 @@ def loadVideos(catalog):
         filtrado["trending_date"] = video["trending_date"]
         filtrado["title"] = video["title"]
         filtrado["channel_title"] = video["channel_title"]
-        filtrado["category_id"] = video["category_id"]
+        filtrado["category_id"] = int(video["category_id"])
         filtrado["publish_time"] = video["publish_time"]
         filtrado["tags"] = video["tags"]
         filtrado["country"] = video["country"]
-        filtrado["views"] = video["views"]
-        filtrado["likes"] = video["likes"]
-        filtrado["dislikes"] = video["dislikes"]
+        filtrado["views"] = int(video["views"])
+        filtrado["likes"] = int(video["likes"])
+        filtrado["dislikes"] = int(video["dislikes"])
         filtrado['trending_date'] = video['trending_date']
         filtrado['publish_time'] = video['publish_time']
         model.addVideo(catalog, filtrado)
@@ -107,14 +107,12 @@ def filtrado_categoria(lista, categoria):
     """Llama a la funcion 'filtrado_categoria()' del modelo"""
     return model.filtrado_categoria(lista, categoria)
 
-def filtrado_tags_y_pais(catalog, tag, pais):
-    return model.filtrado_tags_y_pais(catalog, tag, pais)
+def filtrado_tags(catalog, tag):
+    """Llama a la funcion 'filtrado_categoria()' del modelo"""
+    return model.filtrado_tags(catalog, tag)
 
 def idCat(catalog, categoria):
     return model.idCat(catalog, categoria)
 
-def tendenciaCat(lista):
-    return model.tendenciaCat(lista)
-
-def trendingInCountry(lista):
-    return model.trendingInCountry(lista)
+def trending(lista):
+    return model.trending(lista)
