@@ -145,8 +145,8 @@ def filtrado_tags(lista, tag):
     """
     lista_tags_y_pais = lt.newList('ARRAY_LIST')
     for video in lt.iterator(lista):
-        tags = video['tags'].split('|')
-        if (('"' + tag + '"') in tags):
+        tags = video['tags']
+        if (tag in tags):
             lt.addLast(lista_tags_y_pais, video)
     return lista_tags_y_pais
 

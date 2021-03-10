@@ -145,9 +145,10 @@ while True:
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         filtrado_tags_y_pais = controller.filtrado_tags(filtrado_pais, tag)
         videos_likes = controller.sortVideosReq4(filtrado_tags_y_pais)
-        #sin_rep= controller.sin_repeticiones(videos_likes[1])
         print_resultsReq4(videos_likes[1], sample)
-
+        controller.limpieza(filtrado_tags_y_pais)
+        controller.limpieza(filtrado_pais)
+        controller.limpieza(videos_likes)
     else:
         sys.exit(0)
 sys.exit(0)
