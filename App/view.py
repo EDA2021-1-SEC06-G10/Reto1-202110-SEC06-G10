@@ -109,7 +109,6 @@ while True:
         num_categoria = controller.idCat(catalog, categoria)
         filtrado_categoria = controller.filtrado_categoria(filtrado_pais, num_categoria)
         result = controller.sortVideos(filtrado_categoria)
-        print("El tiempo (mseg) es: ", str(result[0]))
         print_resultsReq1(result[1], tamano)
         controller.limpieza(filtrado_categoria)
         controller.limpieza(filtrado_pais)
