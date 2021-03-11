@@ -210,6 +210,47 @@ def trending(videos_ordenados):
     video = lt.getElement(videos_ordenados, posicion)
     return (mayor, video)
 
+def trending_2(videos_ordenados):
+    """ Recorre la lista ordenada y cuenta cuántas
+        veces se repite un id. La condición: si se 
+        encuentran dos videos con el mismo id, 
+        el contador aumenta, sino, no.
+
+    Parámetros:
+        videos_ordenados: es la lista ordenada que 
+        se va a recorer.
+    
+    Return:
+        Una tupla en la que la primera posición
+        es las veces que apareció en la lista
+        (días en trending) y la segunda posisición
+        es el video que estuvo más días en trending.
+    """    
+    posicion = 0
+    veces = 1
+    mayor = 1
+    size = lt.size(videos_ordenados)
+    i = 0
+    while i < size:
+        if i != size:
+            id_video = lt.getElement(videos_ordenados, i)
+            id_video_2 = lt.getElement(videos_ordenados, i + 1)
+            
+            if (id_video['video_id'] == id_video_2['video_id']):
+                    veces += 1
+            else: 
+                if veces > mayor:
+                    mayor = veces
+                    posicion = i
+                veces = 1
+            i += 1
+        else:
+            if i == size:
+                break
+    
+    video = lt.getElement(videos_ordenados, posicion)
+    return (mayor, video)
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparecatnames(category_name, category):

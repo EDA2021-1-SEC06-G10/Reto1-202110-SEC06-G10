@@ -123,3 +123,6 @@ def idCat(catalog, categoria):
 
 def trending(lista):
     return model.trending(lista)
+
+def trending_2(lista):
+    return model.trending_2(lista)

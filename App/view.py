@@ -119,7 +119,7 @@ while True:
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
         result = controller.sortVideosReq2(filtrado_pais)
-        video_tendencia = controller.trending(result[1])
+        video_tendencia = controller.trending_2(result[1])
         print_resultsReq2(video_tendencia)
         controller.limpieza(video_tendencia)
 
