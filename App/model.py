@@ -235,7 +235,7 @@ def compareviews(video1, video2):
     result = (video1["views"] > video2["views"])
     return result
 
-def compareTitle(video1, video2):
+def comparetitle(video1, video2):
     """ Compara el 'title' que tiene un video.
 
     Parámetros:
@@ -252,7 +252,8 @@ def compareTitle(video1, video2):
     """
     result = (video1['title'] > video2['title'])
     return result
-def compareDates(video1, video2):
+
+def comparedates(video1, video2):
     result = video1['trending_date'] < video2['trending_date']
     return result
 
@@ -275,14 +276,32 @@ def comparelikes(video1, video2):
     result = (int(video1['likes']) > int(video2['likes']))
     return result
 
-def lista(catalog):
-    """Retorna la lista de los videos
+def compareids(video1, video2):
+    """ Compara el id que tiene un video.
+
     Parámetros:
-    catalog: el catálogo principal creado
+        video1: es una lista de videos de donde se 
+        ve el id para comparar.
+
+        video2: es una lista de videos de donde se 
+        ve el id para comparar.
+    
+    Return:
+        Un booleano que indica si sí se cumple la
+        condición (en este caso, True si el id
+        del video1 es mayor que el del video2).
+    result = video1['video_id'] > video2['video_id']
+    return result
+    """
+def lista(catalog):
+    """ Retorna la lista de los videos
+    
+    Parámetros:
+        catalog: el catálogo principal creado
         en la función 'newCatalog()'.
 
     Return: 
-    Retorna la lista de los videos que se encuentra dentro del catalogo
+        La lista de los videos que se encuentra dentro del catalogo
     """
     lista = catalog["videos"]
     return lista
@@ -313,7 +332,7 @@ def sortVideos(lista):
     sub_list = None
     return (tiempo_ms, sorted_list)
 
-def sortVideosReq2y3(lista):
+def sortVideosReq2(lista):
     """ Función sort para ordenar los videos con
         las condiciones de la cmpfunction. En este
         caso, la función de comparación es:
@@ -331,7 +350,31 @@ def sortVideosReq2y3(lista):
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
-    sorted_list = mer.sort(sub_list, compareTitle)
+    sorted_list = mer.sort(sub_list, compareids)
+    t2 = time.process_time()
+    tiempo_ms = (t2-t1)*1000
+    sub_list = None
+    return (tiempo_ms, sorted_list)
+
+def sortVideosReq3(lista):
+    """ Función sort para ordenar los videos con
+        las condiciones de la cmpfunction. En este
+        caso, la función de comparación es:
+                    compareids().
+
+    Parámetros:
+        lista: es la lista que se va a ordenar.
+    
+    Return:
+        Una tupla en la que la primera posición
+        es el tiempo que tarde la función en ordenar
+        y la segunda posición es la lista ordenada.
+    """
+    size = lt.size(lista)
+    sub_list = lt.subList(lista,0,size)
+    sub_list = sub_list.copy()
+    t1 = time.process_time()
+    sorted_list = mer.sort(sub_list, comparetitle)
     t2 = time.process_time()
     tiempo_ms = (t2-t1)*1000
     sub_list = None
@@ -342,11 +385,12 @@ def sortDate(lista):
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
-    sorted_list = mer.sort(sub_list, compareDates)
+    sorted_list = mer.sort(sub_list, comparedates)
     t2 = time.process_time()
     tiempo_ms = (t2-t1)*1000
     sub_list = None
     return (tiempo_ms, sorted_list)
+
 def sortVideosReq4(lista):
     """ Función sort para ordenar los videos con
         las condiciones de la cmpfunction. En este

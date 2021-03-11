@@ -118,12 +118,12 @@ while True:
         pais = input('Ingrese el pais para el cual desea realizar la búsqueda: ')
         pais = pais.lower()
         filtrado_pais = controller.filtrado_pais(catalog, pais)
-        result = controller.sortVideosReq2y3(filtrado_pais)
+        result = controller.sortVideosReq2(filtrado_pais)
         video_tendencia = controller.trending(result[1])
         print_resultsReq2(video_tendencia)
         controller.limpieza(video_tendencia)
 
-    elif int(inputs[0]) == 4:
+    elif int(inputs[0]) == 4: # Print Requerimiento 3
         categoria= input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
         categoria=categoria.lower()
         categoria= " "+categoria
@@ -131,7 +131,7 @@ while True:
         cat_num = controller.idCat(catalog, categoria)
         filtro_cat = controller.filtrado_categoria(lista, cat_num)
         orden_fecha = controller.sortDate(filtro_cat)
-        orden_id = controller.sortVideosReq2y3(orden_fecha[1])
+        orden_id = controller.sortVideosReq3(orden_fecha[1])
         video_mayor = controller.trending(orden_id[1])
         print_resultsReq3(video_mayor)
         controller.limpieza(lista)
