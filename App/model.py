@@ -193,7 +193,7 @@ def trending(videos_ordenados):
         if i != size:
             id_video = lt.getElement(videos_ordenados, i)
             id_video_2 = lt.getElement(videos_ordenados, i + 1)
-            if id_video['video_id'] == id_video_2['video_id']:
+            if (id_video['video_id'] == id_video_2['video_id']) and (id_video['trending_date'] != id_video_2['trending_date']):
                 veces += 1
             else: 
                 if veces > mayor:

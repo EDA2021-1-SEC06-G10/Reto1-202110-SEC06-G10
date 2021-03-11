@@ -55,7 +55,7 @@ def print_resultsReq1(ord_vids, sample):
 def print_resultsReq2(tupla):
     dias = tupla[0]
     video_tendencia = tupla[1]
-    print("Titulo: " + video_tendencia['title'] + " Nombre del canal: " +  video_tendencia['channel_title']  + ' País: ' + video_tendencia['country'] + ' Días: ' + str(dias) + ' ** Tags ** : ' + video_tendencia['tags'] + '.')
+    print("Titulo: " + video_tendencia['title'] + " Nombre del canal: " +  video_tendencia['channel_title']  + ' País: ' + video_tendencia['country'] + ' Días: ' + str(dias) + '.')
 
 def print_resultsReq3(tupla):
     dias = tupla[0]
