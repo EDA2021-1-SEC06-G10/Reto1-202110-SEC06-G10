@@ -78,51 +78,55 @@ def loadCategory(catalog):
 # Funciones de ordenamiento
 
 def sortVideos(lista):
-    """Llama a la funcion sortVideos del modelo"""
+    """ Llama a la funcion sortVideos() del modelo. """
     return model.sortVideos(lista)
 
 def sortVideosReq2(lista):
-    """Llama a la funcion sortVideosReq2 del modelo"""
+    """ Llama a la funcion sortVideosReq2() del modelo. """
     return model.sortVideosReq2(lista)
 
 def sortVideosReq3(lista):
-    """Llama a la funcion sortVideosReq3 del modelo"""
+    """ Llama a la funcion sortVideosReq3() del modelo. """
     return model.sortVideosReq3(lista)
 
 def sortDate(lista):
+    """ Llama a la funcion sortDate() del modelo. """
     return model.sortDate(lista)
     
 def sortVideosReq4(lista):
-    """Llama a la funcion 'sortVideosReq4()' del modelo"""
+    """ Llama a la funcion 'sortVideosReq4()' del modelo. """
     return model.sortVideosReq4(lista)
 
 def limpieza(lista):
-    """Llama a la funcion 'limpieza()' del modelo"""
+    """ Llama a la funcion 'limpieza()' del modelo. """
     return model.limpieza(lista)
 
 # Funciones de consulta sobre el catálogo
 
 def filtrado_pais(catalog, pais):
-    """Llama a la funcion 'filtrado_pais()' del modelo"""
+    """ Llama a la funcion 'filtrado_pais()' del modelo. """
     return model.filtrado_pais(catalog, pais)
 
 def lista(catalog):
-    """Llama a la funcion 'lista()' del modelo"""
+    """ Llama a la funcion 'lista()' del modelo. """
     return model.lista(catalog)
     
 def filtrado_categoria(lista, categoria):
-    """Llama a la funcion 'filtrado_categoria()' del modelo"""
+    """ Llama a la funcion 'filtrado_categoria()' del modelo. """
     return model.filtrado_categoria(lista, categoria)
 
 def filtrado_tags(catalog, tag):
-    """Llama a la funcion 'filtrado_categoria()' del modelo"""
+    """ Llama a la funcion 'filtrado_categoria()' del modelo. """
     return model.filtrado_tags(catalog, tag)
 
 def idCat(catalog, categoria):
+    """ Llama a la funcion 'idCat()' del modelo. """
     return model.idCat(catalog, categoria)
 
 def trending(lista):
+    """ Llama a la funcion 'trending()' del modelo. """
     return model.trending(lista)
 
 def trending_2(lista):
+    """ Llama a la funcion 'trending_2()' del modelo. """
     return model.trending_2(lista)

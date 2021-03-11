@@ -254,7 +254,20 @@ def trending_2(videos_ordenados):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def comparecatnames(category_name, category):
-    """compara el nombre de la categoria que entra por parametro con uno de los que ya se encuentran en el catalogo"""
+    """ Compara el nombre de la categoria 
+        que entra por parámetro con uno de los
+        que ya se encuentran en el catálogo.
+
+    Parámetros:
+        category_name: nombre del categoría.
+
+        category: el catálogo.
+    
+    Return:
+        Un booleano que indica si sí se cumple la
+        condición (en este caso, True si category_name
+        es igual a la categoría en el catálogo).
+    """
     return (category_name == category['category_name'])
  
 def compareviews(video1, video2):
@@ -281,20 +294,34 @@ def comparetitle(video1, video2):
 
     Parámetros:
         video1: es una lista de videos de donde se 
-        ve el id para comparar.
+        ve el título para comparar.
 
         video2: es una lista de videos de donde se 
-        ve el id para comparar.
+        ve el título para comparar.
     
     Return:
         Un booleano que indica si sí se cumple la
-        condición (en este caso, True si el 'id'
+        condición (en este caso, True si el 'título'
         del video1 es 'mayor' al del video2).
     """
     result = (video1['title'] > video2['title'])
     return result
 
 def comparedates(video1, video2):
+    """ Compara la fecha de trending que tiene un video.
+
+    Parámetros:
+        video1: es una lista de videos de donde se 
+        ve la fecha para comparar.
+
+        video2: es una lista de videos de donde se 
+        ve la fecha para comparar.
+    
+    Return:
+        Un booleano que indica si sí se cumple la
+        condición (en este caso, True si la fecha
+        del video1 es menor que la del video2).
+    """
     result = video1['trending_date'] < video2['trending_date']
     return result
 
@@ -402,7 +429,7 @@ def sortVideosReq3(lista):
     """ Función sort para ordenar los videos con
         las condiciones de la cmpfunction. En este
         caso, la función de comparación es:
-                    compareids().
+                    comparetitle().
 
     Parámetros:
         lista: es la lista que se va a ordenar.
@@ -423,6 +450,19 @@ def sortVideosReq3(lista):
     return (tiempo_ms, sorted_list)
 
 def sortDate(lista):
+    """ Función sort para ordenar los videos con
+        las condiciones de la cmpfunction. En este
+        caso, la función de comparación es:
+                    comparedates().
+
+    Parámetros:
+        lista: es la lista que se va a ordenar.
+    
+    Return:
+        Una tupla en la que la primera posición
+        es el tiempo que tarde la función en ordenar
+        y la segunda posición es la lista ordenada.
+    """
     size = lt.size(lista)
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
@@ -458,7 +498,10 @@ def sortVideosReq4(lista):
     return (tiempo_ms, sorted_list)
 
 def limpieza(lista):
-    """Esta funcion recibe como parametro cualquier tipo de dato que es requerido temporalmente 
-    y lo retorna none para evitar que se llene la memoria RAM"""
+    """ Esta funcion recibe como parametro cualquier
+        tipo de dato que es requerido temporalmente
+        y lo retorna none para evitar que se llene
+        la memoria RAM
+    """
     lista = None
     return lista
