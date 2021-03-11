@@ -85,6 +85,9 @@ def sortVideosReq2y3(lista):
     """Llama a la funcion sortVideosReq2y3 del modelo"""
     return model.sortVideosReq2y3(lista)
 
+def sortDate(lista):
+    return model.sortDate(lista)
+    
 def sortVideosReq4(lista):
     """Llama a la funcion 'sortVideosReq4()' del modelo"""
     return model.sortVideosReq4(lista)

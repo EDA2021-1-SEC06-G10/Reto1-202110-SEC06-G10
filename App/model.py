@@ -194,9 +194,9 @@ def trending(videos_ordenados):
             id_video = lt.getElement(videos_ordenados, i)
             id_video_2 = lt.getElement(videos_ordenados, i + 1)
             
-            if (id_video['video_id'] == id_video_2['video_id']): # and (id_video['trending_date'] != id_video_2['trending_date'])
-                #Si se desea ver el que mas dias duro como tendencia sin contar fechas repetidas se agrega el and de la linea 197
-                veces += 1
+            if (id_video['title'] == id_video_2['title']) :
+                if (id_video['trending_date'] != id_video_2['trending_date']):
+                    veces += 1
             else: 
                 if veces > mayor:
                     mayor = veces
@@ -235,8 +235,8 @@ def compareviews(video1, video2):
     result = (video1["views"] > video2["views"])
     return result
 
-def compareids(video1, video2):
-    """ Compara el 'id' que tiene un video.
+def compareTitle(video1, video2):
+    """ Compara el 'title' que tiene un video.
 
     Parámetros:
         video1: es una lista de videos de donde se 
@@ -250,7 +250,10 @@ def compareids(video1, video2):
         condición (en este caso, True si el 'id'
         del video1 es 'mayor' al del video2).
     """
-    result = (video1['video_id'] > video2['video_id'])
+    result = (video1['title'] > video2['title'])
+    return result
+def compareDates(video1, video2):
+    result = video1['trending_date'] < video2['trending_date']
     return result
 
 def comparelikes(video1, video2):
@@ -328,12 +331,22 @@ def sortVideosReq2y3(lista):
     sub_list = lt.subList(lista,0,size)
     sub_list = sub_list.copy()
     t1 = time.process_time()
-    sorted_list = she.sort(sub_list, compareids)
+    sorted_list = mer.sort(sub_list, compareTitle)
     t2 = time.process_time()
     tiempo_ms = (t2-t1)*1000
     sub_list = None
     return (tiempo_ms, sorted_list)
 
+def sortDate(lista):
+    size = lt.size(lista)
+    sub_list = lt.subList(lista,0,size)
+    sub_list = sub_list.copy()
+    t1 = time.process_time()
+    sorted_list = mer.sort(sub_list, compareDates)
+    t2 = time.process_time()
+    tiempo_ms = (t2-t1)*1000
+    sub_list = None
+    return (tiempo_ms, sorted_list)
 def sortVideosReq4(lista):
     """ Función sort para ordenar los videos con
         las condiciones de la cmpfunction. En este
