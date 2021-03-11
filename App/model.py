@@ -290,9 +290,10 @@ def compareids(video1, video2):
         Un booleano que indica si sí se cumple la
         condición (en este caso, True si el id
         del video1 es mayor que el del video2).
+    """
     result = video1['video_id'] > video2['video_id']
     return result
-    """
+
 def lista(catalog):
     """ Retorna la lista de los videos
     
