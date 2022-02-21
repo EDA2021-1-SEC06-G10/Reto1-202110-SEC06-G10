@@ -126,12 +126,16 @@ while True:
     elif int(inputs[0]) == 4: # Print Requerimiento 3
         categoria= input("Ingrese la categoria para la cual desea ver el video con mas dias como tendencia: ")
         categoria=categoria.lower()
+        print(categoria)
         categoria= " "+categoria
+        print(catalog['categories'])
         lista= controller.lista(catalog)
         cat_num = controller.idCat(catalog, categoria)
+        print(cat_num)
         filtro_cat = controller.filtrado_categoria(lista, cat_num)
         orden_fecha = controller.sortDate(filtro_cat)
         orden_id = controller.sortVideosReq3(orden_fecha[1])
+        print(filtro_cat)
         video_mayor = controller.trending(orden_id[1])
         print_resultsReq3(video_mayor)
         controller.limpieza(lista)
